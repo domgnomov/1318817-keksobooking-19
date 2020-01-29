@@ -1,5 +1,9 @@
 'use strict';
 
+var MAP_PINS = document.querySelector('.map__pins');
+var PIN_TEMPLATE = document.querySelector('#pin');
+var MAP_PIN = PIN_TEMPLATE.content.querySelector('.map__pin');
+
 var ADS_LENGTH = 8;
 var PRICE_COEFFICIENT = 10;
 var OFFER_TYPES = ['palace', 'flat', 'house', 'bungalo'];
@@ -8,10 +12,12 @@ var GUESTS = [1, 2, 3, 4];
 var TIMES = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var MIN_Y = 130;
-var MAX_Y = 630;
-var MIN_X = 0;
-var max_x = document.querySelector(".map__pins").offsetWidth;
+var X_SHIFT = 20;
+var Y_SHIFT = 40;
+var MIN_Y = 130 + Y_SHIFT;
+var MAX_Y = 630 - Y_SHIFT;
+var MIN_X = X_SHIFT;
+var MAX_X = MAP_PINS.offsetWidth - X_SHIFT;
 
 
 var getAuthor = function (index) {
@@ -41,7 +47,7 @@ var getLocation = function () {
 
 
 var getAvatar = function (index) {
-  return 'img/avatars/user0' + index + '.png';
+  return 'img/avatars/user0' + (index + 1) + '.png';
 };
 
 var getTitle = function (index) {
@@ -89,12 +95,13 @@ var getPhotos = function () {
 };
 
 var getX = function () {
-  return getRandom(MIN_X, max_x);;
+  return getRandom(MIN_X, MAX_X);
 };
 
 var getY = function () {
   return getRandom(MIN_Y, MAX_Y);
 };
+
 
 var getRandomValue = function (array) {
   return array[getRandom(0, array.length)];
@@ -109,7 +116,7 @@ var getRandomLengthArray = function (array) {
   var randomLength = 0;
   while (randomLength === 0) {
     randomLength = getRandom(0, array.length);
-  };
+  }
   var result = [];
   for (var i = 0; i < randomLength; i++) {
     result.push(array[i]);
@@ -129,7 +136,7 @@ var getAds = function () {
 var createAd = function (index) {
   var location = getLocation();
   var author = getAuthor(index);
-  var offer = getOffer(index, location)
+  var offer = getOffer(index, location);
   var add = {
     author: author,
     offer: offer,
@@ -138,4 +145,32 @@ var createAd = function (index) {
   return add;
 };
 
-var ads = getAds();
+
+var generateAdElementArray = function () {
+  var fragment = document.createDocumentFragment();
+  var ads = getAds();
+
+  for (var i = 0; i < ADS_LENGTH; i++) {
+    fragment.appendChild(generateAdElement(ads[i]));
+  }
+  return fragment;
+};
+
+var generateAdElement = function (ad) {
+  var newElement = MAP_PIN.cloneNode(true);
+
+  newElement.style.left = (ad.location.x - X_SHIFT) + 'px';
+  newElement.style.top = (ad.location.y - Y_SHIFT) + 'px';
+
+  var img = newElement.getElementsByTagName('img')[0];
+
+  img.src = ad.author.avatar;
+  img.alt = ad.offer.title;
+
+  return newElement;
+};
+
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
+
+MAP_PINS.appendChild(generateAdElementArray());
