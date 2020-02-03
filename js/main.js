@@ -1,12 +1,21 @@
 'use strict';
 
-var mapPins = document.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#pin');
-var mapPin = pinTemplate.content.querySelector('.map__pin');
-
 var cardTemplate = document.querySelector('#card');
 var mapCard = cardTemplate.content.querySelector('.map__card');
 
+var map = document.querySelector('.map');
+var mapFilter = document.querySelector('.map__filters-container');
+var mapPins = document.querySelector('.map__pins');
+var mapMainPinButton = mapPins.querySelector('.map__pin--main');
+var pinTemplate = document.querySelector('#pin');
+var mapPin = pinTemplate.content.querySelector('.map__pin');
+
+var adForm = document.querySelector('.ad-form');
+var adFormFieldSets = adForm.querySelectorAll('fieldset');
+
+var mapForm = document.querySelector('.map__filters');
+var mapFormFieldsets = mapForm.querySelectorAll('fieldset');
+var mapFormSelects = mapForm.querySelectorAll('select');
 
 var ADS_LENGTH = 8;
 var PRICE_COEFFICIENT = 10;
@@ -234,12 +243,51 @@ var fillPhotos = function (container, photos) {
   container.removeChild(photo);
 };
 
-var ads = getAds();
+var disableElements = function (elements) {
+  elements.forEach(function (element) {
+    element.disabled = true;
+  });
+};
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
-mapPins.appendChild(generateAdElementArray(ads));
+var enableElements = function (elements) {
+  elements.forEach(function (element) {
+    element.disabled = false;
+  });
+};
 
-var mapFilter = document.querySelector('.map__filters-container');
-var cards = generateCardElementArray(ads, 1);
-map.insertBefore(cards, mapFilter);
+var deactivatePage = function () {
+  disableElements(adFormFieldSets);
+  adForm.classList.add('ad-form--disabled');
+  disableElements(mapFormFieldsets);
+  disableElements(mapFormSelects);
+  map.classList.add('map--faded');
+};
+
+var activatePage = function () {
+  enableElements(adFormFieldSets);
+  adForm.classList.remove('ad-form--disabled');
+  enableElements(mapFormFieldsets);
+  enableElements(mapFormSelects);
+  map.classList.remove('map--faded');
+};
+
+
+var initPage = function () {
+  deactivatePage();
+
+  mapMainPinButton.addEventListener('mousedown', function () {
+    activatePage();
+  });
+  activateElements();
+};
+
+// Создание и показ объявлений
+var activateElements = function () {
+  var ads = getAds();
+  mapPins.appendChild(generateAdElementArray(ads));
+  // Показ одного объявления, поменять 0 на 1
+  var cards = generateCardElementArray(ads, 0);
+  map.insertBefore(cards, mapFilter);
+};
+
+initPage();
