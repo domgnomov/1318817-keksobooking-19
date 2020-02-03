@@ -13,6 +13,8 @@ var mapMainPinButton = mapPins.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var adFormFieldSets = adForm.querySelectorAll('fieldset');
 var address = adForm.querySelector('#address');
+var capacity = adForm.querySelector('#capacity');
+var roomNumber = adForm.querySelector('#room_number');
 
 var mapForm = document.querySelector('.map__filters');
 var mapFormFieldsets = mapForm.querySelectorAll('fieldset');
@@ -289,7 +291,6 @@ var setAddress = function (xShift, yShift) {
   address.value = x + ', ' + y;
 };
 
-
 var initPage = function () {
   deactivatePage();
 
@@ -305,10 +306,15 @@ var initPage = function () {
     }
   });
 
+  capacity.addEventListener('change', function (evt) {
+    debugger;
+  });
+
   activateElements();
 
   setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITHOUT_POINTER / 2);
 };
+
 
 // Создание и показ объявлений
 var activateElements = function () {
