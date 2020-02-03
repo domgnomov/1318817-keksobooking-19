@@ -2,16 +2,17 @@
 
 var cardTemplate = document.querySelector('#card');
 var mapCard = cardTemplate.content.querySelector('.map__card');
+var pinTemplate = document.querySelector('#pin');
+var mapPinTemplate = pinTemplate.content.querySelector('.map__pin');
 
 var map = document.querySelector('.map');
 var mapFilter = document.querySelector('.map__filters-container');
 var mapPins = document.querySelector('.map__pins');
 var mapMainPinButton = mapPins.querySelector('.map__pin--main');
-var pinTemplate = document.querySelector('#pin');
-var mapPin = pinTemplate.content.querySelector('.map__pin');
 
 var adForm = document.querySelector('.ad-form');
 var adFormFieldSets = adForm.querySelectorAll('fieldset');
+var address = adForm.querySelector('#address');
 
 var mapForm = document.querySelector('.map__filters');
 var mapFormFieldsets = mapForm.querySelectorAll('fieldset');
@@ -25,12 +26,20 @@ var GUESTS = [1, 2, 3, 4];
 var TIMES = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var X_SHIFT = 20;
-var Y_SHIFT = 40;
-var MIN_Y = 130 + Y_SHIFT;
-var MAX_Y = 630 - Y_SHIFT;
-var MIN_X = X_SHIFT;
-var MAX_X = mapPins.offsetWidth - X_SHIFT;
+
+var PIN_WIDTH = 65;
+var PIN_HEIGHT_WITHOUT_POINTER = 65;
+var PIN_POINTER_HEIGHT = 10;
+var PIN_HEIGHT_WITH_POINTER = PIN_HEIGHT_WITHOUT_POINTER + PIN_POINTER_HEIGHT;
+
+
+var MIN_Y = 130 + PIN_HEIGHT_WITH_POINTER;
+var MAX_Y = 630 - PIN_HEIGHT_WITH_POINTER;
+var MIN_X = PIN_WIDTH / 2;
+var MAX_X = mapPins.offsetWidth - (PIN_WIDTH / 2);
+
+var LEFT_MOUSE_BUTTON_CODE = 0;
+var ENTER_KEY = 'Enter';
 
 
 var getAuthor = function (index) {
@@ -179,10 +188,10 @@ var generateAdElementArray = function (ads) {
 };
 
 var generateAdElement = function (ad) {
-  var newElement = mapPin.cloneNode(true);
+  var newElement = mapPinTemplate.cloneNode(true);
 
-  newElement.style.left = (ad.location.x - X_SHIFT) + 'px';
-  newElement.style.top = (ad.location.y - Y_SHIFT) + 'px';
+  newElement.style.left = (ad.location.x - (PIN_WIDTH / 2)) + 'px';
+  newElement.style.top = (ad.location.y - PIN_HEIGHT_WITH_POINTER) + 'px';
 
   var img = newElement.getElementsByTagName('img')[0];
 
@@ -269,16 +278,36 @@ var activatePage = function () {
   enableElements(mapFormFieldsets);
   enableElements(mapFormSelects);
   map.classList.remove('map--faded');
+
+  setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITH_POINTER);
+};
+
+var setAddress = function (xShift, yShift) {
+  address.readOnly = true;
+  var x = Math.round(1 * (mapMainPinButton.style.left.replace('px','')) + xShift);
+  var y = Math.round(1 * (mapMainPinButton.style.top.replace('px','')) + yShift);
+  address.value = x + ', ' + y;
 };
 
 
 var initPage = function () {
   deactivatePage();
 
-  mapMainPinButton.addEventListener('mousedown', function () {
-    activatePage();
+  mapMainPinButton.addEventListener( 'mousedown', function (evt) {
+    if (evt.button === LEFT_MOUSE_BUTTON_CODE) {
+      activatePage();
+    }
   });
+
+  mapMainPinButton.addEventListener('keydown', function (evt) {
+    if (evt.key === ENTER_KEY) {
+      activatePage();
+    }
+  });
+
   activateElements();
+
+  setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITHOUT_POINTER / 2);
 };
 
 // Создание и показ объявлений
