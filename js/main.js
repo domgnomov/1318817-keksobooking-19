@@ -286,15 +286,15 @@ var activatePage = function () {
 
 var setAddress = function (xShift, yShift) {
   address.readOnly = true;
-  var x = Math.round(1 * (mapMainPinButton.style.left.replace('px','')) + xShift);
-  var y = Math.round(1 * (mapMainPinButton.style.top.replace('px','')) + yShift);
+  var x = Math.round(1 * (mapMainPinButton.style.left.replace('px', '')) + xShift);
+  var y = Math.round(1 * (mapMainPinButton.style.top.replace('px', '')) + yShift);
   address.value = x + ', ' + y;
 };
 
 var initPage = function () {
   deactivatePage();
 
-  mapMainPinButton.addEventListener( 'mousedown', function (evt) {
+  mapMainPinButton.addEventListener('mousedown', function (evt) {
     if (evt.button === LEFT_MOUSE_BUTTON_CODE) {
       activatePage();
     }
