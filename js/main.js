@@ -307,29 +307,11 @@ var initPage = function () {
   });
 
   capacity.addEventListener('change', function () {
-    debugger;
-    if (capacity.value * 1 === 0 && roomNumber.value * 1 !== 100) {
-      capacity.setCustomValidity('Выбранное количество гостей не предназначено для выбранного количества комнат. Выберите - Не для гостей');
-      return;
-    }
-    if (roomNumber.value < capacity.value) {
-      capacity.setCustomValidity('Количество гостей не может превышать количество комнат');
-      return;
-    }
-    capacity.setCustomValidity('');
+    validateForm();
   });
 
   roomNumber.addEventListener('change', function () {
-    debugger;
-    if (roomNumber.value * 1 === 100 && capacity.value * 1 !== 0) {
-      roomNumber.setCustomValidity('Выбранное количество комнат не предназначено для гостей. Выберите - 100 комнат');
-      return;
-    }
-    if (roomNumber.value < capacity.value) {
-      roomNumber.setCustomValidity('Количество комнат не может быть меньше количества гостей');
-      return;
-    }
-    roomNumber.setCustomValidity('');
+    validateForm();
   });
 
   activateElements();
@@ -337,6 +319,26 @@ var initPage = function () {
   setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITHOUT_POINTER / 2);
 };
 
+var validateForm = function () {
+  if (capacity.value * 1 === 0 && roomNumber.value * 1 !== 100) {
+    roomNumber.setCustomValidity('Для количества гостей \'не для гостей\' доступно только количество комнат \'100 комнат\'');
+    roomNumber.focus();
+    return false;
+  }
+  if (roomNumber.value * 1 === 100 && capacity.value * 1 !== 0) {
+    capacity.setCustomValidity('Для количества комнат \'100 комнат\' доступно только количество гостей \'не для гостей\'');
+    capacity.focus();
+    return false;
+  }
+  if (roomNumber.value < capacity.value) {
+    capacity.setCustomValidity('Количество гостей не может превышать количество комнат');
+    capacity.focus();
+    return false;
+  }
+  capacity.setCustomValidity('');
+  roomNumber.setCustomValidity('');
+  return true;
+};
 
 // Создание и показ объявлений
 var activateElements = function () {
