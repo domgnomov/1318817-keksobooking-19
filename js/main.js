@@ -306,8 +306,30 @@ var initPage = function () {
     }
   });
 
-  capacity.addEventListener('change', function (evt) {
+  capacity.addEventListener('change', function () {
     debugger;
+    if (capacity.value * 1 === 0 && roomNumber.value * 1 !== 100) {
+      capacity.setCustomValidity('Выбранное количество гостей не предназначено для выбранного количества комнат. Выберите - Не для гостей');
+      return;
+    }
+    if (roomNumber.value < capacity.value) {
+      capacity.setCustomValidity('Количество гостей не может превышать количество комнат');
+      return;
+    }
+    capacity.setCustomValidity('');
+  });
+
+  roomNumber.addEventListener('change', function () {
+    debugger;
+    if (roomNumber.value * 1 === 100 && capacity.value * 1 !== 0) {
+      roomNumber.setCustomValidity('Выбранное количество комнат не предназначено для гостей. Выберите - 100 комнат');
+      return;
+    }
+    if (roomNumber.value < capacity.value) {
+      roomNumber.setCustomValidity('Количество комнат не может быть меньше количества гостей');
+      return;
+    }
+    roomNumber.setCustomValidity('');
   });
 
   activateElements();
