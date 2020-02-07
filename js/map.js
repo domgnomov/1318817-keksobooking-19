@@ -41,7 +41,7 @@
     mapFormFieldsetElement: mapFormFieldsetElement,
     mapFormSelectElement: mapFormSelectElement
 
-  }
+  };
 
   window.map = {
     init: init,

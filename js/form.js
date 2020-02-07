@@ -50,8 +50,7 @@
     formRoomNumberElement: formRoomNumberElement,
     formFieldsetElement: formFieldsetElement,
     formAddressElement: formAddressElement,
-  }
-
+  };
 
   window.form = {
     init: init,

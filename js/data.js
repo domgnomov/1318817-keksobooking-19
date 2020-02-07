@@ -143,7 +143,7 @@
     TIMES: TIMES,
     FEATURES: FEATURES,
     PHOTOS: PHOTOS
-  }
+  };
 
   window.adFactory = {
     createAd: createAd,
