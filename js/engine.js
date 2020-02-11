@@ -48,9 +48,13 @@
     setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITH_POINTER);
   };
 
-  var activateElements = function () {
-    var ads = window.adFactory.getAds();
+  var showAdElementArray = function (ads) {
     window.map.elements.mapPinsElement.appendChild(window.adFactory.generateAdElementArray(ads));
+  };
+
+  var activateElements = function () {
+    var ads = window.backend.load(showAdElementArray, window.backend.errorHandler);
+
     // Показ одного объявления, поменять 0 на 1
     var cards = window.card.generateCardElementArray(ads, 0);
     window.map.elements.mapElement.insertBefore(cards, window.map.elements.mapFilterElement);
