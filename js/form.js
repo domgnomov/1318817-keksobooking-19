@@ -52,6 +52,7 @@
     mainElement.appendChild(successDialogElement);
 
     successDialogElement.classList.remove('hidden');
+    successDialogElement.focus();
     successDialogElement.addEventListener('keydown', onSuccessDialogEscPress);
     successDialogElement.addEventListener('click', onSuccessDialogClick);
   };
