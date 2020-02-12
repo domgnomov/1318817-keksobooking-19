@@ -32,6 +32,7 @@
 
   var deactivatePage = function () {
     disableElements(window.form.elements.formFieldsetElement);
+    window.form.elements.formElement.reset();
     window.form.elements.formElement.classList.add('ad-form--disabled');
     disableElements(window.map.elements.mapFormFieldsetElement);
     disableElements(window.map.elements.mapFormSelectElement);

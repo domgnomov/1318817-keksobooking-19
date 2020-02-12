@@ -20,7 +20,7 @@
   };
 
   var generateAdElement = function (ad) {
-    var newElement = window.map.elements.mapPinTemplateElement.cloneNode(true);
+    var newElement = window.map.elements.mapPinElement.cloneNode(true);
 
     newElement.style.left = (ad.location.x - (window.engine.elements.PIN_WIDTH / 2)) + 'px';
     newElement.style.top = (ad.location.y - window.engine.elements.PIN_HEIGHT_WITH_POINTER) + 'px';
