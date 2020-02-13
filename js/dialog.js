@@ -16,23 +16,6 @@
     closeSuccessDialog();
   };
 
-  var showSuccessDialog = function () {
-   /* mainElement.appendChild(successDialogElement);
-
-    successDialogElement.classList.remove('hidden');
-    successDialogElement.focus();
-    successDialogElement.addEventListener('keydown', onSuccessDialogEscPress);
-    successDialogElement.addEventListener('click', onSuccessDialogClick);*/
-    showDialog(successDialogElement, onSuccessDialogEscPress, onSuccessDialogClick);
-  };
-
-  var closeSuccessDialog = function () {
-/*    successDialogElement.classList.add('hidden');
-    successDialogElement.removeEventListener('keydown', onSuccessDialogEscPress);
-    successDialogElement.removeEventListener('click', onSuccessDialogClick);*/
-    closeDialog(successDialogElement, onSuccessDialogEscPress, onSuccessDialogClick);
-  };
-
   var onErrorDialogEscPress = function (evt) {
     window.keyboardUtil.isEscEvent(evt, closeErrorDialog);
   };
@@ -41,22 +24,20 @@
     closeErrorDialog();
   };
 
+  var showSuccessDialog = function () {
+    showDialog(successDialogElement, onSuccessDialogEscPress, onSuccessDialogClick);
+  };
+
+  var closeSuccessDialog = function () {
+    closeDialog(successDialogElement, onSuccessDialogEscPress, onSuccessDialogClick);
+  };
+
   var showErrorDialog = function (errorMessage) {
     errorDialogErrorMessageElement.textContent = errorMessage;
-/*    mainElement.appendChild(errorDialogElement);
-
-    errorDialogElement.classList.remove('hidden');
-
-    errorDialogElement.focus();
-    errorDialogElement.addEventListener('keydown', onErrorDialogEscPress);
-    errorDialogElement.addEventListener('click', onErrorDialogClick);*/
     showDialog(errorDialogElement, onErrorDialogEscPress, onErrorDialogClick);
   };
 
   var closeErrorDialog = function () {
-    /*errorDialogElement.classList.add('hidden');
-    errorDialogElement.removeEventListener('keydown', onErrorDialogEscPress);
-    errorDialogElement.removeEventListener('click', onErrorDialogClick);*/
     closeDialog(errorDialogElement, onErrorDialogEscPress, onErrorDialogClick);
   };
 

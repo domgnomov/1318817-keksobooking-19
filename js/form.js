@@ -6,6 +6,7 @@
   var formRoomNumberElement = formElement.querySelector('#room_number');
   var formFieldsetElement = formElement.querySelectorAll('fieldset');
   var formAddressElement = formElement.querySelector('#address');
+  var resetButtonElement = formElement.querySelector('.ad-form__reset');
 
   var NOT_FOR_GUESTS_VALUE = '0';
   var ONE_HUNDRED_ROOMS_VALUE = '100';
@@ -52,6 +53,10 @@
         }, window.dialog.showErrorDialog);
       }
       evt.preventDefault();
+    });
+
+    resetButtonElement.addEventListener('click', function () {
+      window.form.elements.formElement.reset();
     });
   };
 
