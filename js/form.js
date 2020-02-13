@@ -6,11 +6,12 @@
   var formRoomNumberElement = formElement.querySelector('#room_number');
   var formFieldsetElement = formElement.querySelectorAll('fieldset');
   var formAddressElement = formElement.querySelector('#address');
-
+  var mainElement = document.getElementsByTagName('main')[0];
   var successTemplateElement = document.querySelector('#success');
   var successDialogElement = successTemplateElement.content.querySelector('.success').cloneNode(true);
-/*  var errorTemplateElement = document.querySelector('#error');
-  var errorDialogElement = errorTemplateElement.content.querySelector('.error').cloneNode(true);*/
+  var errorTemplateElement = document.querySelector('#error');
+  var errorDialogElement = errorTemplateElement.content.querySelector('.error').cloneNode(true);
+  var errorDialogErrorMessageElement = errorDialogElement.querySelector('.error__message');
 
   var NOT_FOR_GUESTS_VALUE = '0';
   var ONE_HUNDRED_ROOMS_VALUE = '100';
@@ -48,7 +49,6 @@
   };
 
   var showSuccessDialog = function () {
-    var mainElement = document.getElementsByTagName('main')[0];
     mainElement.appendChild(successDialogElement);
 
     successDialogElement.classList.remove('hidden');
@@ -63,7 +63,7 @@
     successDialogElement.removeEventListener('click', onSuccessDialogClick);
   };
 
-  /*var onErrorDialogEscPress = function (evt) {
+  var onErrorDialogEscPress = function (evt) {
     window.keyboardUtil.isEscEvent(evt, closeErrorDialog);
   };
 
@@ -71,20 +71,21 @@
     closeErrorDialog();
   };
 
-  var showErrorDialog = function () {
-    var mainElement = document.getElementsByTagName('main')[0];
-    mainElement.appendChild(errorTemplateElement);
+  var showErrorDialog = function (errorMessage) {
+    mainElement.appendChild(errorDialogElement);
 
-    errorTemplateElement.classList.remove('hidden');
-    errorTemplateElement.addEventListener('keydown', onErrorDialogEscPress);
-    errorTemplateElement.addEventListener('click', onErrorDialogClick);
+    errorDialogElement.classList.remove('hidden');
+    errorDialogErrorMessageElement.textContent = errorMessage;
+    errorDialogElement.focus();
+    errorDialogElement.addEventListener('keydown', onErrorDialogEscPress);
+    errorDialogElement.addEventListener('click', onErrorDialogClick);
   };
 
   var closeErrorDialog = function () {
-    errorTemplateElement.classList.add('hidden');
-    errorTemplateElement.removeEventListener('keydown', onErrorDialogEscPress);
-    errorTemplateElement.removeEventListener('click', onErrorDialogClick);
-  };*/
+    errorDialogElement.classList.add('hidden');
+    errorDialogElement.removeEventListener('keydown', onErrorDialogEscPress);
+    errorDialogElement.removeEventListener('click', onErrorDialogClick);
+  };
 
 
 
@@ -102,7 +103,7 @@
         window.backend.save(new FormData(formElement), function () {
           showSuccessDialog();
           window.engine.deactivatePage();
-        });
+        }, showErrorDialog);
       }
       evt.preventDefault();
     });
