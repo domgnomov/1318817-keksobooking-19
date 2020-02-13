@@ -54,7 +54,7 @@
   };
 
   var activateElements = function () {
-    var ads = window.backend.load(showAdElementArray, window.backend.errorHandler);
+    var ads = window.backend.load(showAdElementArray, window.dialog.showErrorDialog);
 
     // Показ одного объявления, поменять 0 на 1
     var cards = window.card.generateCardElementArray(ads, 0);
