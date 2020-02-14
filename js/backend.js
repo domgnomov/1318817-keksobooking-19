@@ -32,11 +32,11 @@
   };
 
   var load = function (onLoad, onError) {
-    doRequest('https://js.dump.academy/keksobooking/data','GET', onLoad, onError);
+    doRequest('https://js.dump.academy/keksobooking/data', 'GET', onLoad, onError);
   };
 
   var save = function (data, onLoad, onError) {
-    doRequest('https://js.dump.academy/keksobooking','POST', onLoad, onError, data);
+    doRequest('https://js.dump.academy/keksobooking', 'POST', onLoad, onError, data);
   };
 
   window.backend = {
