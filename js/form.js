@@ -35,6 +35,10 @@
     return true;
   };
 
+  var onSuccessLoad = function () {
+    window.dialog.showSuccessDialog();
+    window.engine.deactivatePage();
+  };
 
   var init = function () {
     formCapacityElement.addEventListener('change', function () {
@@ -46,11 +50,9 @@
     });
 
     formElement.addEventListener('submit', function (evt) {
+      var data = new FormData(formElement);
       if (window.form.validateForm()) {
-        window.backend.save(new FormData(formElement), function () {
-          window.dialog.showSuccessDialog();
-          window.engine.deactivatePage();
-        }, window.dialog.showErrorDialog);
+        window.backend.save(data, onSuccessLoad, window.dialog.showErrorDialog);
       }
       evt.preventDefault();
     });
