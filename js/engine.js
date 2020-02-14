@@ -32,6 +32,7 @@
 
   var deactivatePage = function () {
     disableElements(window.form.elements.formFieldsetElement);
+    window.form.elements.formElement.reset();
     window.form.elements.formElement.classList.add('ad-form--disabled');
     disableElements(window.map.elements.mapFormFieldsetElement);
     disableElements(window.map.elements.mapFormSelectElement);
@@ -53,7 +54,7 @@
   };
 
   var activateElements = function () {
-    var ads = window.backend.load(showAdElementArray, window.backend.errorHandler);
+    var ads = window.backend.load(showAdElementArray, window.dialog.showErrorDialog);
 
     // Показ одного объявления, поменять 0 на 1
     var cards = window.card.generateCardElementArray(ads, 0);

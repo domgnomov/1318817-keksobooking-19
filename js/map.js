@@ -2,7 +2,7 @@
 
 (function () {
   var pinTemplateElement = document.querySelector('#pin');
-  var mapPinTemplateElement = pinTemplateElement.content.querySelector('.map__pin');
+  var mapPinElement = pinTemplateElement.content.querySelector('.map__pin');
 
   var mapPinsElement = document.querySelector('.map__pins');
   var mapElement = document.querySelector('.map');
@@ -32,7 +32,7 @@
 
   var elements = {
     pinTemplateElement: pinTemplateElement,
-    mapPinTemplateElement: mapPinTemplateElement,
+    mapPinElement: mapPinElement,
     mapPinsElement: mapPinsElement,
     mapMainPinButtonElement: mapMainPinButtonElement,
     mapElement: mapElement,
