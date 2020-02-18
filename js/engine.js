@@ -49,8 +49,19 @@
     setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITH_POINTER);
   };
 
+  var showFilterElementArray = function () {
+    appendFragment(window.data.getFilteredAdElementArray());
+  };
+
   var showAdElementArray = function (ads) {
-    window.map.elements.mapPinsElement.appendChild(window.adFactory.generateAdElementArray(ads));
+    appendFragment(window.data.getAdElementArray(ads));
+  };
+
+  var appendFragment = function (fragment) {
+    if (fragment === 'undefined') {
+      return;
+    }
+    window.map.elements.mapPinsElement.appendChild(fragment);
   };
 
   var activateElements = function () {
@@ -76,6 +87,7 @@
     deactivatePage: deactivatePage,
     activatePage: activatePage,
     activateElements: activateElements,
+    showFilterElementArray: showFilterElementArray,
     elements: elements
   };
 })();

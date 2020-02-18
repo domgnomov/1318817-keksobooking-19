@@ -12,6 +12,10 @@
   var mapFormElement = document.querySelector('.map__filters');
   var mapFormFieldsetElement = mapFormElement.querySelectorAll('fieldset');
   var mapFormSelectElement = mapFormElement.querySelectorAll('select');
+  var housingTypeFormElement = mapFormElement.querySelector('#housing-type');
+  var housingPriceFormElement = mapFormElement.querySelector('#housing-price');
+  var housingRoomsFormElement = mapFormElement.querySelector('#housing-rooms');
+  var housingGuestsFormElement = mapFormElement.querySelector('#housing-guets');
 
   var LEFT_MOUSE_BUTTON_CODE = 0;
   var ENTER_KEY = 'Enter';
@@ -28,6 +32,15 @@
         window.engine.activatePage();
       }
     });
+
+    housingTypeFormElement.addEventListener('change', function () {
+      window.engine.showFilterElementArray();
+    });
+
+    housingRoomsFormElement.addEventListener('change', function () {
+      window.engine.showFilterElementArray();
+    });
+
   };
 
   var elements = {
@@ -39,8 +52,11 @@
     mapFilterElement: mapFilterElement,
     mapFormElement: mapFormElement,
     mapFormFieldsetElement: mapFormFieldsetElement,
-    mapFormSelectElement: mapFormSelectElement
-
+    mapFormSelectElement: mapFormSelectElement,
+    housingTypeFormElement: housingTypeFormElement,
+    housingPriceFormElement: housingPriceFormElement,
+    housingRoomsFormElement: housingRoomsFormElement,
+    housingGuestsFormElement: housingGuestsFormElement
   };
 
   window.map = {
