@@ -10,41 +10,32 @@
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-  var data = [];
+  var initialAds = [];
 
   var getFilteredAdElementArray = function () {
-    if (data === 'undefined') {
-      return 'undefined';
-    }
-    var filteredAds = window.filter.getFilteredAds(data);
+    var filteredAds = window.filter.getFilteredAds(initialAds);
     return generateAdElementArray(filteredAds);
   };
 
   var getAdElementArray = function (ads) {
-    data = ads;
+    initialAds = ads.slice();
     return generateAdElementArray(ads);
   };
 
   var generateAdElementArray = function (ads) {
     clearAds();
-    if (ads === 'undefined' || ads.length === 0) {
-      return 'undefined';
-    }
-    var fragment = document.createDocumentFragment();
 
     var arrayLength = ads.length < ADS_LENGTH ? ads.length : ADS_LENGTH;
-    for (var i = 0; i < arrayLength; i++) {
-      fragment.appendChild(generateAdElement(ads[i]));
-    }
-    return fragment;
+    return ads.slice(0, arrayLength).reduce(function (fragment, element) {
+      fragment.appendChild(generateAdElement(element));
+      return fragment;
+    }, document.createDocumentFragment());
   };
 
   var clearAds = function () {
-    var children = window.map.elements.mapPinsElement.querySelectorAll('.map__pin');
+    var children = window.map.elements.mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
     children.forEach(function (child) {
-      if (!child.isEqualNode(window.map.elements.mapMainPinButtonElement)) {
-        window.map.elements.mapPinsElement.removeChild(child);
-      }
+      window.map.elements.mapPinsElement.removeChild(child);
     });
   };
 

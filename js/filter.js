@@ -3,26 +3,30 @@
 (function () {
 
   var getFilteredAds = function (ads) {
-    var result = getHousingRoomsFilterAds(ads);
-    result = getHousingTypeFilterAds(result);
+    var result = ads.slice();
+
+    var typeFilterValue = window.map.elements.housingTypeFormElement.value;
+    if (typeFilterValue !== 'any') {
+      result = filterByType(result, typeFilterValue);
+    }
+
+    var roomsFilterValue = window.map.elements.housingRoomsFormElement.value;
+    if (roomsFilterValue !== 'any') {
+      result = filterByRooms(result, roomsFilterValue);
+    }
+
     return result;
   };
 
-  var getHousingTypeFilterAds = function (ads) {
-    if (window.map.elements.housingTypeFormElement.value === 'any') {
-      return ads;
-    }
+  var filterByType = function (ads, value) {
     return ads.slice().filter(function (ad) {
-      return ad.offer.type === window.map.elements.housingTypeFormElement.value;
+      return ad.offer.type.toString() === value;
     });
   };
 
-  var getHousingRoomsFilterAds = function (ads) {
-    if (window.map.elements.housingRoomsFormElement.value === 'any') {
-      return ads;
-    }
+  var filterByRooms = function (ads, value) {
     return ads.slice().filter(function (ad) {
-      return (ad.offer.rooms + '') === window.map.elements.housingRoomsFormElement.value;
+      return ad.offer.rooms.toString() === value;
     });
   };
 

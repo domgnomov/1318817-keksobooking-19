@@ -5,12 +5,10 @@
   var mapCardTemplateElement = cardTemplateElement.content.querySelector('.map__card');
 
   var generateCardElementArray = function (ads, count) {
-    var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < count; i++) {
-      fragment.appendChild(generateCardElement(ads[i]));
-    }
-    return fragment;
+    return ads.slice(0, count).reduce(function (fragment, element) {
+      fragment.appendChild(generateCardElement(element));
+      return fragment;
+    }, document.createDocumentFragment());
   };
 
   var getTypeName = function (type) {

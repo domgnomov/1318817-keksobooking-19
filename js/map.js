@@ -4,8 +4,8 @@
   var pinTemplateElement = document.querySelector('#pin');
   var mapPinElement = pinTemplateElement.content.querySelector('.map__pin');
 
-  var mapPinsElement = document.querySelector('.map__pins');
   var mapElement = document.querySelector('.map');
+  var mapPinsElement = document.querySelector('.map__pins');
   var mapFilterElement = document.querySelector('.map__filters-container');
   var mapMainPinButtonElement = mapPinsElement.querySelector('.map__pin--main');
 
@@ -19,6 +19,18 @@
 
   var LEFT_MOUSE_BUTTON_CODE = 0;
   var ENTER_KEY = 'Enter';
+
+  var onFilterChange = function () {
+    window.engine.showFilteredAds();
+    clearCards();
+  };
+
+  var clearCards = function () {
+    var mapCardsElement = mapElement.querySelectorAll('.map__card');
+    mapCardsElement.forEach(function (card) {
+      mapElement.removeChild(card);
+    });
+  };
 
   var init = function () {
     mapMainPinButtonElement.addEventListener('mousedown', function (evt) {
@@ -34,11 +46,11 @@
     });
 
     housingTypeFormElement.addEventListener('change', function () {
-      window.engine.showFilterElementArray();
+      onFilterChange();
     });
 
     housingRoomsFormElement.addEventListener('change', function () {
-      window.engine.showFilterElementArray();
+      onFilterChange();
     });
 
   };
