@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var ADS_LENGTH = 8;
+  var ADS_LENGTH = 5;
   var PRICE_COEFFICIENT = 10;
   var OFFER_TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var ROOMS = [1, 2, 3, 4];
@@ -10,13 +10,33 @@
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-  var generateAdElementArray = function (ads) {
-    var fragment = document.createDocumentFragment();
+  var initialAds = [];
 
-    for (var i = 0; i < ADS_LENGTH; i++) {
-      fragment.appendChild(generateAdElement(ads[i]));
-    }
-    return fragment;
+  var getFilteredAdElementArray = function () {
+    var filteredAds = window.filter.getFilteredAds(initialAds);
+    return generateAdElementArray(filteredAds);
+  };
+
+  var getAdElementArray = function (ads) {
+    initialAds = ads.slice();
+    return generateAdElementArray(ads);
+  };
+
+  var generateAdElementArray = function (ads) {
+    clearAds();
+
+    var arrayLength = ads.length < ADS_LENGTH ? ads.length : ADS_LENGTH;
+    return ads.slice(0, arrayLength).reduce(function (fragment, element) {
+      fragment.appendChild(generateAdElement(element));
+      return fragment;
+    }, document.createDocumentFragment());
+  };
+
+  var clearAds = function () {
+    var children = window.map.elements.mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
+    children.forEach(function (child) {
+      window.map.elements.mapPinsElement.removeChild(child);
+    });
   };
 
   var generateAdElement = function (ad) {
@@ -43,8 +63,9 @@
     PHOTOS: PHOTOS
   };
 
-  window.adFactory = {
-    generateAdElementArray: generateAdElementArray,
+  window.data = {
+    getAdElementArray: getAdElementArray,
+    getFilteredAdElementArray: getFilteredAdElementArray,
     elements: elements
   };
 

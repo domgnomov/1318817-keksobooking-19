@@ -45,20 +45,24 @@
     window.form.elements.formElement.classList.remove('ad-form--disabled');
     enableElements(window.map.elements.mapFormFieldsetElement);
     enableElements(window.map.elements.mapFormSelectElement);
+    activateElements();
     window.map.elements.mapElement.classList.remove('map--faded');
     setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITH_POINTER);
   };
 
-  var showAdElementArray = function (ads) {
-    window.map.elements.mapPinsElement.appendChild(window.adFactory.generateAdElementArray(ads));
+  var showFilteredAds = function () {
+    window.map.elements.mapPinsElement.appendChild(window.data.getFilteredAdElementArray());
   };
 
-  var activateElements = function () {
-    var ads = window.backend.load(showAdElementArray, window.dialog.showErrorDialog);
-
+  var showAds = function (ads) {
+    window.map.elements.mapPinsElement.appendChild(window.data.getAdElementArray(ads));
     // Показ одного объявления, поменять 0 на 1
     var cards = window.card.generateCardElementArray(ads, 0);
     window.map.elements.mapElement.insertBefore(cards, window.map.elements.mapFilterElement);
+  };
+
+  var activateElements = function () {
+    window.backend.load(showAds, window.dialog.showErrorDialog);
   };
 
   var elements = {
@@ -76,6 +80,7 @@
     deactivatePage: deactivatePage,
     activatePage: activatePage,
     activateElements: activateElements,
+    showFilteredAds: showFilteredAds,
     elements: elements
   };
 })();

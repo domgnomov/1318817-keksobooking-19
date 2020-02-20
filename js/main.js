@@ -4,6 +4,5 @@
   window.engine.deactivatePage();
   window.map.init();
   window.form.init();
-  window.engine.activateElements();
 })();
 

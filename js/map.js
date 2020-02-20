@@ -4,17 +4,33 @@
   var pinTemplateElement = document.querySelector('#pin');
   var mapPinElement = pinTemplateElement.content.querySelector('.map__pin');
 
-  var mapPinsElement = document.querySelector('.map__pins');
   var mapElement = document.querySelector('.map');
+  var mapPinsElement = document.querySelector('.map__pins');
   var mapFilterElement = document.querySelector('.map__filters-container');
   var mapMainPinButtonElement = mapPinsElement.querySelector('.map__pin--main');
 
   var mapFormElement = document.querySelector('.map__filters');
   var mapFormFieldsetElement = mapFormElement.querySelectorAll('fieldset');
   var mapFormSelectElement = mapFormElement.querySelectorAll('select');
+  var housingTypeFormElement = mapFormElement.querySelector('#housing-type');
+  var housingPriceFormElement = mapFormElement.querySelector('#housing-price');
+  var housingRoomsFormElement = mapFormElement.querySelector('#housing-rooms');
+  var housingGuestsFormElement = mapFormElement.querySelector('#housing-guets');
 
   var LEFT_MOUSE_BUTTON_CODE = 0;
   var ENTER_KEY = 'Enter';
+
+  var onFilterChange = function () {
+    window.engine.showFilteredAds();
+    clearCards();
+  };
+
+  var clearCards = function () {
+    var mapCardsElement = mapElement.querySelectorAll('.map__card');
+    mapCardsElement.forEach(function (card) {
+      mapElement.removeChild(card);
+    });
+  };
 
   var init = function () {
     mapMainPinButtonElement.addEventListener('mousedown', function (evt) {
@@ -28,6 +44,15 @@
         window.engine.activatePage();
       }
     });
+
+    housingTypeFormElement.addEventListener('change', function () {
+      onFilterChange();
+    });
+
+    housingRoomsFormElement.addEventListener('change', function () {
+      onFilterChange();
+    });
+
   };
 
   var elements = {
@@ -39,8 +64,11 @@
     mapFilterElement: mapFilterElement,
     mapFormElement: mapFormElement,
     mapFormFieldsetElement: mapFormFieldsetElement,
-    mapFormSelectElement: mapFormSelectElement
-
+    mapFormSelectElement: mapFormSelectElement,
+    housingTypeFormElement: housingTypeFormElement,
+    housingPriceFormElement: housingPriceFormElement,
+    housingRoomsFormElement: housingRoomsFormElement,
+    housingGuestsFormElement: housingGuestsFormElement
   };
 
   window.map = {
