@@ -4,13 +4,6 @@
   var cardTemplateElement = document.querySelector('#card');
   var mapCardTemplateElement = cardTemplateElement.content.querySelector('.map__card');
 
-  var generateCardElementArray = function (ads, count) {
-    return ads.slice(0, count).reduce(function (fragment, element) {
-      fragment.appendChild(generateCardElement(element));
-      return fragment;
-    }, document.createDocumentFragment());
-  };
-
   var getTypeName = function (type) {
     switch (type) {
       case 'palace': return 'Дворец';
@@ -46,7 +39,7 @@
     container.removeChild(photo);
   };
 
-  var generateCardElement = function (ad) {
+  var getCardElement = function (ad) {
     var newElement = mapCardTemplateElement.cloneNode(true);
 
     newElement.querySelector('.popup__title').textContent = ad.offer.title;
@@ -64,7 +57,6 @@
   };
 
   window.card = {
-    generateCardElementArray: generateCardElementArray,
-    generateCardElement: generateCardElement
+    getCardElement: getCardElement
   };
 })();

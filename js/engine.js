@@ -51,18 +51,16 @@
   };
 
   var showFilteredAds = function () {
-    window.map.elements.mapPinsElement.appendChild(window.data.getFilteredAdElementArray());
+    window.map.elements.mapPinsElement.appendChild(window.data.getFilteredAds());
   };
 
-  var showAds = function (ads) {
-    window.map.elements.mapPinsElement.appendChild(window.data.getAdElementArray(ads));
-    // Показ одного объявления, поменять 0 на 1
-    var cards = window.card.generateCardElementArray(ads, 0);
-    window.map.elements.mapElement.insertBefore(cards, window.map.elements.mapFilterElement);
+  var showBaseAds = function (ads) {
+    window.data.initAds(ads);
+    window.map.elements.mapPinsElement.appendChild(window.data.getAdElements(window.data.getInitialAds()));
   };
 
   var activateElements = function () {
-    window.backend.load(showAds, window.dialog.showErrorDialog);
+    window.backend.load(showBaseAds, window.dialog.showErrorDialog);
   };
 
   var elements = {
