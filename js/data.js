@@ -52,13 +52,21 @@
     img.src = ad.author.avatar;
     img.alt = ad.offer.title;
 
-    var cardElement = window.card.getCardElement(ad);
-
-    newElement.addEventListener('click', function () {
-      window.map.elements.mapElement.insertBefore(cardElement, window.map.elements.mapFilterElement);
-    });
+    initAdElementEvents(newElement, ad);
 
     return newElement;
+  };
+
+  var initAdElementEvents = function (element, ad) {
+    var cardElement = window.card.getCardElement(ad);
+
+    element.addEventListener('click', function () {
+      window.card.showCardElement(cardElement)();
+    });
+
+    element.addEventListener('keydown', function (evt) {
+      window.keyboardUtil.isEnterEvent(evt, window.card.showCardElement(cardElement));
+    });
   };
 
   var elements = {

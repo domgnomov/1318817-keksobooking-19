@@ -39,6 +39,39 @@
     container.removeChild(photo);
   };
 
+  var initCardEvents = function (element) {
+    element.addEventListener('keydown', function (evt) {
+      window.keyboardUtil.isEscEvent(evt, closeCardElement(element));
+    });
+
+    var closePopupElement = element.querySelector('.popup__close');
+    closePopupElement.addEventListener('click', function () {
+      closeCardElement(element)();
+    });
+  };
+
+  var closeCardElement = function (element) {
+    return function () {
+      element.classList.add('hidden');
+    };
+  };
+
+  var closeAllCardElements = function () {
+    var children = document.querySelectorAll('.map__card');
+    children.forEach(function (element) {
+      closeCardElement(element)();
+    });
+  };
+
+  var showCardElement = function (cardElement) {
+    return function () {
+      closeAllCardElements();
+      window.map.elements.mapElement.insertBefore(cardElement, window.map.elements.mapFilterElement);
+      cardElement.classList.remove('hidden');
+      cardElement.focus();
+    };
+  };
+
   var getCardElement = function (ad) {
     var newElement = mapCardTemplateElement.cloneNode(true);
 
@@ -53,10 +86,13 @@
     fillPhotos(newElement.querySelector('.popup__photos'), ad.offer.photos);
     newElement.querySelector('.popup__avatar').src = ad.author.avatar;
 
+    initCardEvents(newElement);
+
     return newElement;
   };
 
   window.card = {
-    getCardElement: getCardElement
+    getCardElement: getCardElement,
+    showCardElement: showCardElement
   };
 })();

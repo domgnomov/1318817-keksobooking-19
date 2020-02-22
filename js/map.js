@@ -33,6 +33,7 @@
   };
 
   var init = function () {
+    mapMainPinButtonElement.focus();
     mapMainPinButtonElement.addEventListener('mousedown', function (evt) {
       if (evt.button === LEFT_MOUSE_BUTTON_CODE) {
         window.engine.activatePage();
