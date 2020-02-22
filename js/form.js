@@ -6,10 +6,25 @@
   var formRoomNumberElement = formElement.querySelector('#room_number');
   var formFieldsetElement = formElement.querySelectorAll('fieldset');
   var formAddressElement = formElement.querySelector('#address');
+  var formHousingTypeElement = formElement.querySelector('#type');
+  var formHousingPriceElement = formElement.querySelector('#price');
+  var formTimeInElement = formElement.querySelector('#timein');
+  var formTimeOutElement = formElement.querySelector('#timeout');
   var resetButtonElement = formElement.querySelector('.ad-form__reset');
 
   var NOT_FOR_GUESTS_VALUE = '0';
   var ONE_HUNDRED_ROOMS_VALUE = '100';
+
+  var HOUSING_MIN_PRICE_BY_TYPE = {
+    bungalo: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 10000
+  };
+
+  var MAX_PRICE = 1000000;
+
+  var HOUSING_TYPE_ANY = 'any';
 
   var validateForm = function () {
     if (formCapacityElement.value === NOT_FOR_GUESTS_VALUE && formRoomNumberElement.value !== ONE_HUNDRED_ROOMS_VALUE) {
@@ -30,8 +45,19 @@
       formCapacityElement.focus();
       return false;
     }
+    if (formHousingPriceElement.value < 0 || formHousingPriceElement.value > MAX_PRICE) {
+      return false;
+    }
+    var minPrice = HOUSING_MIN_PRICE_BY_TYPE[formHousingTypeElement.value];
+    if (formHousingTypeElement.value !== HOUSING_TYPE_ANY && formHousingPriceElement.value < minPrice) {
+      formHousingPriceElement.setCustomValidity('Для выбранного типа жилья минимальная цена составляет - ' + minPrice + ' рублей');
+      formHousingTypeElement.focus();
+      return false;
+    }
+
     formCapacityElement.setCustomValidity('');
     formRoomNumberElement.setCustomValidity('');
+    formHousingPriceElement.setCustomValidity('');
     return true;
   };
 
@@ -47,6 +73,26 @@
 
     formRoomNumberElement.addEventListener('change', function () {
       window.form.validateForm();
+    });
+
+    formHousingPriceElement.addEventListener('change', function () {
+      window.form.validateForm();
+    });
+
+    formHousingPriceElement.addEventListener('input', function () {
+      formHousingPriceElement.setCustomValidity('');
+    });
+
+    formHousingTypeElement.addEventListener('change', function () {
+      window.form.validateForm();
+    });
+
+    formTimeInElement.addEventListener('change', function () {
+      formTimeOutElement.value = formTimeInElement.value;
+    });
+
+    formTimeOutElement.addEventListener('change', function () {
+      formTimeInElement.value = formTimeOutElement.value;
     });
 
     formElement.addEventListener('submit', function (evt) {

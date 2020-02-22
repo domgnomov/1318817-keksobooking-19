@@ -12,10 +12,10 @@
   var mapFormElement = document.querySelector('.map__filters');
   var mapFormFieldsetElement = mapFormElement.querySelectorAll('fieldset');
   var mapFormSelectElement = mapFormElement.querySelectorAll('select');
-  var housingTypeFormElement = mapFormElement.querySelector('#housing-type');
-  var housingPriceFormElement = mapFormElement.querySelector('#housing-price');
-  var housingRoomsFormElement = mapFormElement.querySelector('#housing-rooms');
-  var housingGuestsFormElement = mapFormElement.querySelector('#housing-guets');
+  var mapFormHousingTypeElement = mapFormElement.querySelector('#housing-type');
+  var mapFormHousingPriceElement = mapFormElement.querySelector('#housing-price');
+  var mapFormHousingRoomsElement = mapFormElement.querySelector('#housing-rooms');
+  var mapFormHousingGuestsElement = mapFormElement.querySelector('#housing-guets');
 
   var LEFT_MOUSE_BUTTON_CODE = 0;
   var ENTER_KEY = 'Enter';
@@ -46,11 +46,11 @@
       }
     });
 
-    housingTypeFormElement.addEventListener('change', function () {
+    mapFormHousingTypeElement.addEventListener('change', function () {
       onFilterChange();
     });
 
-    housingRoomsFormElement.addEventListener('change', function () {
+    mapFormHousingRoomsElement.addEventListener('change', function () {
       onFilterChange();
     });
 
@@ -66,10 +66,10 @@
     mapFormElement: mapFormElement,
     mapFormFieldsetElement: mapFormFieldsetElement,
     mapFormSelectElement: mapFormSelectElement,
-    housingTypeFormElement: housingTypeFormElement,
-    housingPriceFormElement: housingPriceFormElement,
-    housingRoomsFormElement: housingRoomsFormElement,
-    housingGuestsFormElement: housingGuestsFormElement
+    mapFormHousingTypeElement: mapFormHousingTypeElement,
+    mapFormHousingPriceElement: mapFormHousingPriceElement,
+    mapFormHousingRoomsElement: mapFormHousingRoomsElement,
+    mapFormHousingGuestsElement: mapFormHousingGuestsElement
   };
 
   window.map = {
