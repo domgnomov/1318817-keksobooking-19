@@ -4,13 +4,6 @@
   var cardTemplateElement = document.querySelector('#card');
   var mapCardTemplateElement = cardTemplateElement.content.querySelector('.map__card');
 
-  var generateCardElementArray = function (ads, count) {
-    return ads.slice(0, count).reduce(function (fragment, element) {
-      fragment.appendChild(generateCardElement(element));
-      return fragment;
-    }, document.createDocumentFragment());
-  };
-
   var getTypeName = function (type) {
     switch (type) {
       case 'palace': return 'Дворец';
@@ -46,7 +39,40 @@
     container.removeChild(photo);
   };
 
-  var generateCardElement = function (ad) {
+  var initCardEvents = function (element) {
+    element.addEventListener('keydown', function (evt) {
+      window.keyboardUtil.isEscEvent(evt, closeCardElement(element));
+    });
+
+    var closePopupElement = element.querySelector('.popup__close');
+    closePopupElement.addEventListener('click', function () {
+      closeCardElement(element)();
+    });
+  };
+
+  var closeCardElement = function (element) {
+    return function () {
+      element.classList.add('hidden');
+    };
+  };
+
+  var closeAllCardElements = function () {
+    var children = document.querySelectorAll('.map__card');
+    children.forEach(function (element) {
+      closeCardElement(element)();
+    });
+  };
+
+  var showCardElement = function (cardElement) {
+    return function () {
+      closeAllCardElements();
+      window.map.elements.mapElement.insertBefore(cardElement, window.map.elements.mapFilterElement);
+      cardElement.classList.remove('hidden');
+      cardElement.focus();
+    };
+  };
+
+  var getCardElement = function (ad) {
     var newElement = mapCardTemplateElement.cloneNode(true);
 
     newElement.querySelector('.popup__title').textContent = ad.offer.title;
@@ -60,11 +86,13 @@
     fillPhotos(newElement.querySelector('.popup__photos'), ad.offer.photos);
     newElement.querySelector('.popup__avatar').src = ad.author.avatar;
 
+    initCardEvents(newElement);
+
     return newElement;
   };
 
   window.card = {
-    generateCardElementArray: generateCardElementArray,
-    generateCardElement: generateCardElement
+    getCardElement: getCardElement,
+    showCardElement: showCardElement
   };
 })();

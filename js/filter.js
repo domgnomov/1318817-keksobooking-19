@@ -5,12 +5,12 @@
   var getFilteredAds = function (ads) {
     var result = ads.slice();
 
-    var typeFilterValue = window.map.elements.housingTypeFormElement.value;
+    var typeFilterValue = window.map.elements.mapFormHousingTypeElement.value;
     if (typeFilterValue !== 'any') {
       result = filterByType(result, typeFilterValue);
     }
 
-    var roomsFilterValue = window.map.elements.housingRoomsFormElement.value;
+    var roomsFilterValue = window.map.elements.mapFormHousingRoomsElement.value;
     if (roomsFilterValue !== 'any') {
       result = filterByRooms(result, roomsFilterValue);
     }

@@ -12,22 +12,24 @@
 
   var initialAds = [];
 
-  var getFilteredAdElementArray = function () {
-    var filteredAds = window.filter.getFilteredAds(initialAds);
-    return generateAdElementArray(filteredAds);
-  };
-
-  var getAdElementArray = function (ads) {
+  var initAds = function (ads) {
     initialAds = ads.slice();
-    return generateAdElementArray(ads);
   };
 
-  var generateAdElementArray = function (ads) {
+  var getInitialAds = function () {
+    return initialAds;
+  };
+
+  var getFilteredAds = function () {
+    return window.filter.getFilteredAds(initialAds);
+  };
+
+  var getAdElements = function (ads) {
     clearAds();
 
     var arrayLength = ads.length < ADS_LENGTH ? ads.length : ADS_LENGTH;
     return ads.slice(0, arrayLength).reduce(function (fragment, element) {
-      fragment.appendChild(generateAdElement(element));
+      fragment.appendChild(getAdElement(element));
       return fragment;
     }, document.createDocumentFragment());
   };
@@ -39,7 +41,7 @@
     });
   };
 
-  var generateAdElement = function (ad) {
+  var getAdElement = function (ad) {
     var newElement = window.map.elements.mapPinElement.cloneNode(true);
 
     newElement.style.left = (ad.location.x - (window.engine.elements.PIN_WIDTH / 2)) + 'px';
@@ -50,7 +52,21 @@
     img.src = ad.author.avatar;
     img.alt = ad.offer.title;
 
+    initAdElementEvents(newElement, ad);
+
     return newElement;
+  };
+
+  var initAdElementEvents = function (element, ad) {
+    var cardElement = window.card.getCardElement(ad);
+
+    element.addEventListener('click', function () {
+      window.card.showCardElement(cardElement)();
+    });
+
+    element.addEventListener('keydown', function (evt) {
+      window.keyboardUtil.isEnterEvent(evt, window.card.showCardElement(cardElement));
+    });
   };
 
   var elements = {
@@ -64,8 +80,11 @@
   };
 
   window.data = {
-    getAdElementArray: getAdElementArray,
-    getFilteredAdElementArray: getFilteredAdElementArray,
+    initAds: initAds,
+    getInitialAds: getInitialAds,
+    getFilteredAds: getFilteredAds,
+    getAdElements: getAdElements,
+    initialAds: initialAds,
     elements: elements
   };
 
