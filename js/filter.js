@@ -25,6 +25,30 @@
       result = filterByGuests(result, guestsFilterValue);
     }
 
+    if (window.map.elements.mapFormWifiElement.checked) {
+      result = filterByFeature(result, 'wifi');
+    }
+
+    if (window.map.elements.mapFormDishwasherElement.checked) {
+      result = filterByFeature(result, 'dishwasher');
+    }
+
+    if (window.map.elements.mapFormParkingElement.checked) {
+      result = filterByFeature(result, 'parking');
+    }
+
+    if (window.map.elements.mapFormWasherElement.checked) {
+      result = filterByFeature(result, 'washer');
+    }
+
+    if (window.map.elements.mapFormElevatorElement.checked) {
+      result = filterByFeature(result, 'elevator');
+    }
+
+    if (window.map.elements.mapFormConditionerElement.checked) {
+      result = filterByFeature(result, 'conditioner');
+    }
+
     return result;
   };
 
@@ -52,6 +76,12 @@
         return ad.offer.guests === 0;
       }
       return ad.offer.guests >= value;
+    });
+  };
+
+  var filterByFeature = function (ads, value) {
+    return ads.slice().filter(function (ad) {
+      return ad.offer.features.includes(value);
     });
   };
 
