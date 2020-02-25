@@ -15,7 +15,7 @@
   var mapFormHousingTypeElement = mapFormElement.querySelector('#housing-type');
   var mapFormHousingPriceElement = mapFormElement.querySelector('#housing-price');
   var mapFormHousingRoomsElement = mapFormElement.querySelector('#housing-rooms');
-  var mapFormHousingGuestsElement = mapFormElement.querySelector('#housing-guets');
+  var mapFormHousingGuestsElement = mapFormElement.querySelector('#housing-guests');
 
   var LEFT_MOUSE_BUTTON_CODE = 0;
   var ENTER_KEY = 'Enter';
@@ -50,7 +50,15 @@
       onFilterChange();
     });
 
+    mapFormHousingPriceElement.addEventListener('change', function () {
+      onFilterChange();
+    });
+
     mapFormHousingRoomsElement.addEventListener('change', function () {
+      onFilterChange();
+    });
+
+    mapFormHousingGuestsElement.addEventListener('change', function () {
       onFilterChange();
     });
 

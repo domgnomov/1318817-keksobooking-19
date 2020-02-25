@@ -51,7 +51,7 @@
   };
 
   var showFilteredAds = function () {
-    window.map.elements.mapPinsElement.appendChild(window.data.getFilteredAds());
+    window.map.elements.mapPinsElement.appendChild(window.data.getAdElements(window.data.getFilteredAds()));
   };
 
   var showBaseAds = function (ads) {
