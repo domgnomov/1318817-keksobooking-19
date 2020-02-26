@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var RADIX = 10;
 
   var getFilteredAds = function (ads) {
     var result = ads.slice();
@@ -10,9 +11,43 @@
       result = filterByType(result, typeFilterValue);
     }
 
+    var priceFilterValue = window.map.elements.mapFormHousingPriceElement.value;
+    if (priceFilterValue !== 'any') {
+      result = filterByPrice(result, priceFilterValue);
+    }
+
     var roomsFilterValue = window.map.elements.mapFormHousingRoomsElement.value;
     if (roomsFilterValue !== 'any') {
       result = filterByRooms(result, roomsFilterValue);
+    }
+
+    var guestsFilterValue = window.map.elements.mapFormHousingGuestsElement.value;
+    if (guestsFilterValue !== 'any') {
+      result = filterByGuests(result, guestsFilterValue);
+    }
+
+    if (window.map.elements.mapFormWifiElement.checked) {
+      result = filterByFeature(result, 'wifi');
+    }
+
+    if (window.map.elements.mapFormDishwasherElement.checked) {
+      result = filterByFeature(result, 'dishwasher');
+    }
+
+    if (window.map.elements.mapFormParkingElement.checked) {
+      result = filterByFeature(result, 'parking');
+    }
+
+    if (window.map.elements.mapFormWasherElement.checked) {
+      result = filterByFeature(result, 'washer');
+    }
+
+    if (window.map.elements.mapFormElevatorElement.checked) {
+      result = filterByFeature(result, 'elevator');
+    }
+
+    if (window.map.elements.mapFormConditionerElement.checked) {
+      result = filterByFeature(result, 'conditioner');
     }
 
     return result;
@@ -24,10 +59,41 @@
     });
   };
 
+  var filterByPrice = function (ads, value) {
+    return ads.slice().filter(function (ad) {
+      return getValueByPrice(ad.offer.price) === value;
+    });
+  };
+
   var filterByRooms = function (ads, value) {
     return ads.slice().filter(function (ad) {
       return ad.offer.rooms.toString() === value;
     });
+  };
+
+  var filterByGuests = function (ads, value) {
+    return ads.slice().filter(function (ad) {
+      if (parseInt(value, RADIX) === 0) {
+        return ad.offer.guests === 0;
+      }
+      return ad.offer.guests >= value;
+    });
+  };
+
+  var filterByFeature = function (ads, value) {
+    return ads.slice().filter(function (ad) {
+      return ad.offer.features.includes(value);
+    });
+  };
+
+  var getValueByPrice = function (price) {
+    if (price >= 50000) {
+      return 'high';
+    } else if (price >= 10000) {
+      return 'middle';
+    } else {
+      return 'low';
+    }
   };
 
   window.filter = {
