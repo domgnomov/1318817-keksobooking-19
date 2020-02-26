@@ -54,15 +54,17 @@
       }
     });
 
+    var debounce = window.debounce(onFilterChange);
+
     mapFormAllFiltersElements.forEach(function (element) {
       element.addEventListener('change', function () {
-        onFilterChange();
+        debounce();
       });
     });
 
     mapFormAllCheckboxElements.forEach(function (element) {
       element.addEventListener('change', function () {
-        onFilterChange();
+        debounce();
       });
     });
 
