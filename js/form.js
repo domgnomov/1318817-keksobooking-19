@@ -67,6 +67,8 @@
   };
 
   var init = function () {
+    window.form.elements.formAddressElement.readOnly = true;
+
     formCapacityElement.addEventListener('change', function () {
       window.form.validateForm();
     });

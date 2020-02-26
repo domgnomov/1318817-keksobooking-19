@@ -23,10 +23,9 @@
     });
   };
 
-  var setAddress = function (xShift, yShift) {
-    window.form.elements.formAddressElement.readOnly = true;
-    var x = Math.round(1 * (window.map.elements.mapMainPinButtonElement.style.left.replace('px', '')) + xShift);
-    var y = Math.round(1 * (window.map.elements.mapMainPinButtonElement.style.top.replace('px', '')) + yShift);
+  var setAddress = function () {
+    var x = Math.round(1 * (window.map.elements.mapMainPinButtonElement.style.left.replace('px', '')) + PIN_WIDTH / 2);
+    var y = Math.round(1 * (window.map.elements.mapMainPinButtonElement.style.top.replace('px', '')) + PIN_HEIGHT_WITH_POINTER);
     window.form.elements.formAddressElement.value = x + ', ' + y;
   };
 
@@ -37,7 +36,8 @@
     disableElements(window.map.elements.mapFormFieldsetElement);
     disableElements(window.map.elements.mapFormSelectElement);
     window.map.elements.mapElement.classList.add('map--faded');
-    setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITHOUT_POINTER / 2);
+    setAddress();
+    window.mapPinMoving.setDefaultPosition();
   };
 
   var activatePage = function () {
@@ -47,7 +47,7 @@
     enableElements(window.map.elements.mapFormSelectElement);
     activateElements();
     window.map.elements.mapElement.classList.remove('map--faded');
-    setAddress(PIN_WIDTH / 2, PIN_HEIGHT_WITH_POINTER);
+    setAddress();
   };
 
   var showFilteredAds = function () {
@@ -79,6 +79,7 @@
     activatePage: activatePage,
     activateElements: activateElements,
     showFilteredAds: showFilteredAds,
+    setAddress: setAddress,
     elements: elements
   };
 })();

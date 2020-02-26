@@ -1,8 +1,9 @@
 'use strict';
 
 (function () {
-  window.engine.deactivatePage();
   window.map.init();
+  window.mapPinMoving.init();
   window.form.init();
+  window.engine.deactivatePage();
 })();
 
