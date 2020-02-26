@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var RADIX = 10;
 
   var getFilteredAds = function (ads) {
     var result = ads.slice();
@@ -72,7 +73,7 @@
 
   var filterByGuests = function (ads, value) {
     return ads.slice().filter(function (ad) {
-      if (parseInt(value) === 0) {
+      if (parseInt(value, RADIX) === 0) {
         return ad.offer.guests === 0;
       }
       return ad.offer.guests >= value;
@@ -91,7 +92,7 @@
     } else if (price >= 10000) {
       return 'middle';
     } else {
-      return 'low'
+      return 'low';
     }
   };
 
