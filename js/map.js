@@ -25,6 +25,10 @@
   var mapFormElevatorElement = mapFormElement.querySelector('#filter-elevator');
   var mapFormConditionerElement = mapFormElement.querySelector('#filter-conditioner');
 
+  var mapWidth = mapElement.offsetWidth;
+  var mainPinWidth = mapMainPinButtonElement.offsetWidth;
+  var mainPinHeight = mapMainPinButtonElement.offsetHeight;
+
   var LEFT_MOUSE_BUTTON_CODE = 0;
   var ENTER_KEY = 'Enter';
 
@@ -43,13 +47,13 @@
   var init = function () {
     mapMainPinButtonElement.focus();
     mapMainPinButtonElement.addEventListener('mousedown', function (evt) {
-      if (evt.button === LEFT_MOUSE_BUTTON_CODE) {
+      if (evt.button === LEFT_MOUSE_BUTTON_CODE && !window.engine.isPageActivated) {
         window.engine.activatePage();
       }
     });
 
     mapMainPinButtonElement.addEventListener('keydown', function (evt) {
-      if (evt.key === ENTER_KEY) {
+      if (evt.key === ENTER_KEY && !window.engine.isPageActivated) {
         window.engine.activatePage();
       }
     });
@@ -94,6 +98,9 @@
 
   window.map = {
     init: init,
-    elements: elements
+    elements: elements,
+    mapWidth: mapWidth,
+    mainPinWidth: mainPinWidth,
+    mainPinHeight: mainPinHeight
   };
 })();

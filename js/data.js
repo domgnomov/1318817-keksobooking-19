@@ -44,8 +44,8 @@
   var getAdElement = function (ad) {
     var newElement = window.map.elements.mapPinElement.cloneNode(true);
 
-    newElement.style.left = (ad.location.x - (window.engine.elements.PIN_WIDTH / 2)) + 'px';
-    newElement.style.top = (ad.location.y - window.engine.elements.PIN_HEIGHT_WITH_POINTER) + 'px';
+    newElement.style.left = (ad.location.x - (window.map.mainPinWidth / 2)) + 'px';
+    newElement.style.top = (ad.location.y - window.map.mainPinHeight) + 'px';
 
     var img = newElement.getElementsByTagName('img')[0];
 
