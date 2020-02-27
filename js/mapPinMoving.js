@@ -9,8 +9,8 @@
 
   var mainPinElement = window.map.elements.mapMainPinButtonElement;
 
-  var minX = - window.map.mainPinWidth / 2;
-  var maxX = - window.map.mainPinWidth / 2 + window.map.mapWidth;
+  var minX = -window.map.mainPinWidth / 2;
+  var maxX = -window.map.mainPinWidth / 2 + window.map.mapWidth;
   var minY = MIN_PIN_Y_VALUE - window.map.mainPinHeight;
   var maxY = MAX_PIN_Y_VALUE - window.map.mainPinHeight;
 
