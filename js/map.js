@@ -44,6 +44,18 @@
     });
   };
 
+  var clearFilters = function () {
+    mapFormAllFiltersElements.forEach(function (element) {
+      element.value = 'any';
+    });
+  };
+
+  var clearCheckboxes = function () {
+    mapFormAllCheckboxElements.forEach(function (element) {
+      element.checked = false;
+    });
+  };
+
   var init = function () {
     mapMainPinButtonElement.focus();
     mapMainPinButtonElement.addEventListener('mousedown', function (evt) {
@@ -98,6 +110,8 @@
 
   window.map = {
     init: init,
+    clearFilters: clearFilters,
+    clearCheckboxes: clearCheckboxes,
     elements: elements,
     mapWidth: mapWidth,
     mainPinWidth: mainPinWidth,

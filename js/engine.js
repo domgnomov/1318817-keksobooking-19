@@ -34,6 +34,9 @@
     disableElements(window.map.elements.mapFormFieldsetElement);
     disableElements(window.map.elements.mapFormSelectElement);
     window.map.elements.mapElement.classList.add('map--faded');
+    window.data.clearAds();
+    window.map.clearFilters();
+    window.map.clearCheckboxes();
     setAddress();
     window.mapPinMoving.setDefaultPosition();
   };
@@ -42,10 +45,7 @@
     isPageActivated = true;
     enableElements(window.form.elements.formFieldsetElement);
     window.form.elements.formElement.classList.remove('ad-form--disabled');
-    enableElements(window.map.elements.mapFormFieldsetElement);
-    enableElements(window.map.elements.mapFormSelectElement);
     activateElements();
-    window.map.elements.mapElement.classList.remove('map--faded');
     setAddress();
   };
 
@@ -56,6 +56,9 @@
   var showBaseAds = function (ads) {
     window.data.initAds(ads);
     window.map.elements.mapPinsElement.appendChild(window.data.getAdElements(window.data.getInitialAds()));
+    window.map.elements.mapElement.classList.remove('map--faded');
+    enableElements(window.map.elements.mapFormFieldsetElement);
+    enableElements(window.map.elements.mapFormSelectElement);
   };
 
   var activateElements = function () {

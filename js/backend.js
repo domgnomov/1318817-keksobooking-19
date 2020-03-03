@@ -25,6 +25,7 @@
   var doRequest = function (url, requestType, onLoad, onError, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
+    xhr.requestType = 'multipart/form-data';
     statusHandler(xhr, onLoad, onError);
     xhr.timeout = TIMEOUT_IN_MS;
     xhr.open(requestType, url);

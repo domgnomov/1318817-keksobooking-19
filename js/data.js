@@ -2,18 +2,13 @@
 
 (function () {
   var ADS_LENGTH = 5;
-  var PRICE_COEFFICIENT = 10;
-  var OFFER_TYPES = ['palace', 'flat', 'house', 'bungalo'];
-  var ROOMS = [1, 2, 3, 4];
-  var GUESTS = [1, 2, 3, 4];
-  var TIMES = ['12:00', '13:00', '14:00'];
-  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
   var initialAds = [];
 
   var initAds = function (ads) {
-    initialAds = ads.slice();
+    initialAds = ads.slice().filter(function (ad) {
+      return 'offer' in ad;
+    });
   };
 
   var getInitialAds = function () {
@@ -69,23 +64,13 @@
     });
   };
 
-  var elements = {
-    PRICE_COEFFICIENT: PRICE_COEFFICIENT,
-    OFFER_TYPES: OFFER_TYPES,
-    ROOMS: ROOMS,
-    GUESTS: GUESTS,
-    TIMES: TIMES,
-    FEATURES: FEATURES,
-    PHOTOS: PHOTOS
-  };
-
   window.data = {
     initAds: initAds,
     getInitialAds: getInitialAds,
     getFilteredAds: getFilteredAds,
     getAdElements: getAdElements,
-    initialAds: initialAds,
-    elements: elements
+    clearAds: clearAds,
+    initialAds: initialAds
   };
 
 })();

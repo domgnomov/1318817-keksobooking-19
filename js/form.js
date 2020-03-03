@@ -61,6 +61,11 @@
     return true;
   };
 
+  var changePlaceholderPrice = function () {
+    var newPlaceholderPrice = HOUSING_MIN_PRICE_BY_TYPE[formHousingTypeElement.value];
+    formHousingPriceElement.placeholder = newPlaceholderPrice;
+  }
+
   var onSuccessLoad = function () {
     window.dialog.showSuccessDialog();
     window.engine.deactivatePage();
@@ -70,15 +75,15 @@
     window.form.elements.formAddressElement.readOnly = true;
 
     formCapacityElement.addEventListener('change', function () {
-      window.form.validateForm();
+      validateForm();
     });
 
     formRoomNumberElement.addEventListener('change', function () {
-      window.form.validateForm();
+      validateForm();
     });
 
     formHousingPriceElement.addEventListener('change', function () {
-      window.form.validateForm();
+      validateForm();
     });
 
     formHousingPriceElement.addEventListener('input', function () {
@@ -86,7 +91,8 @@
     });
 
     formHousingTypeElement.addEventListener('change', function () {
-      window.form.validateForm();
+      validateForm();
+      changePlaceholderPrice();
     });
 
     formTimeInElement.addEventListener('change', function () {
@@ -99,7 +105,7 @@
 
     formElement.addEventListener('submit', function (evt) {
       var data = new FormData(formElement);
-      if (window.form.validateForm()) {
+      if (validateForm()) {
         window.backend.save(data, onSuccessLoad, window.dialog.showErrorDialog);
       }
       evt.preventDefault();
@@ -107,6 +113,12 @@
 
     resetButtonElement.addEventListener('click', function () {
       window.form.elements.formElement.reset();
+      window.map.clearCheckboxes();
+      window.map.clearFilters();
+      window.data.clearAds();
+      window.card.closeAllCardElements();
+      window.mapPinMoving.setDefaultPosition();
+      window.engine.setAddress();
     });
   };
 
@@ -120,7 +132,6 @@
 
   window.form = {
     init: init,
-    validateForm: validateForm,
     elements: elements
   };
 })();
