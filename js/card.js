@@ -52,7 +52,7 @@
   };
 
   var getCapacity = function (rooms, guests) {
-    return rooms + ' комнаты для ' + guests + ' гостей'
+    return rooms + ' комнаты для ' + guests + ' гостей';
   };
 
   var getTime = function (checkin, checkout) {
@@ -79,8 +79,8 @@
     if (isFieldExist) {
       var children = element.querySelectorAll('.popup__feature');
 
-      Array.prototype.forEach.call(children, function (element) {
-        element.style.display = 'none';
+      Array.prototype.forEach.call(children, function (child) {
+        child.style.display = 'none';
       });
 
       values.forEach(function (feature) {
@@ -96,9 +96,9 @@
       var fragment = document.createDocumentFragment();
       var photo = element.querySelector('.popup__photo');
 
-      values.forEach(function (element) {
+      values.forEach(function (value) {
         var newPhoto = photo.cloneNode(true);
-        newPhoto.src = element;
+        newPhoto.src = value;
         fragment.appendChild(newPhoto);
       });
 
@@ -124,10 +124,8 @@
     setCardTextValue(ad.offer.address, 'address' in ad.offer, newElement.querySelector('.popup__text--address'));
     setCardInnerHTMLValue(getPrice(ad.offer.price), 'price' in ad.offer, newElement.querySelector('.popup__text--price'));
     setCardTextValue(getTypeName(ad.offer.type), 'type' in ad.offer, newElement.querySelector('.popup__type'));
-    setCardTextValue(getCapacity(ad.offer.rooms, ad.offer.guests),
-      ('rooms' in ad.offer) && ('guests' in ad.offer), newElement.querySelector('.popup__text--capacity'));
-    setCardTextValue(getTime(ad.offer.checkin, ad.offer.checkout),
-      ('checkin' in ad.offer) && ('checkout' in ad.offer), newElement.querySelector('.popup__text--time'));
+    setCardTextValue(getCapacity(ad.offer.rooms, ad.offer.guests), ('rooms' in ad.offer) && ('guests' in ad.offer), newElement.querySelector('.popup__text--capacity'));
+    setCardTextValue(getTime(ad.offer.checkin, ad.offer.checkout), ('checkin' in ad.offer) && ('checkout' in ad.offer), newElement.querySelector('.popup__text--time'));
     setFeaturesValues(ad.offer.features, 'features' in ad.offer, newElement.querySelector('.popup__features'));
     setCardTextValue(ad.offer.description, 'description' in ad.offer, newElement.querySelector('.popup__description'));
     setPhotos(ad.offer.photos, 'photos' in ad.offer, newElement.querySelector('.popup__photos'));

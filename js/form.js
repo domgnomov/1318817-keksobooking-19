@@ -64,7 +64,7 @@
   var changePlaceholderPrice = function () {
     var newPlaceholderPrice = HOUSING_MIN_PRICE_BY_TYPE[formHousingTypeElement.value];
     formHousingPriceElement.placeholder = newPlaceholderPrice;
-  }
+  };
 
   var onSuccessLoad = function () {
     window.dialog.showSuccessDialog();
