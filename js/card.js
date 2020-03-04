@@ -18,7 +18,6 @@
   var closeCardElement = function (element) {
     return function () {
       element.remove();
-      element.classList.add('hidden');
     };
   };
 
@@ -33,7 +32,6 @@
     return function () {
       closeAllCardElements();
       window.map.elements.mapElement.insertBefore(cardElement, window.map.elements.mapFilterElement);
-      cardElement.classList.remove('hidden');
       cardElement.focus();
     };
   };

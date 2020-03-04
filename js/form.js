@@ -115,13 +115,8 @@
     });
 
     resetButtonElement.addEventListener('click', function () {
-      window.form.elements.formElement.reset();
-      window.map.clearCheckboxes();
-      window.map.clearFilters();
-      window.data.clearAds();
-      window.card.closeAllCardElements();
       window.mapPinMoving.setDefaultPosition();
-      window.engine.setAddress();
+      window.main.init();
     });
   };
 

@@ -1,10 +1,11 @@
 'use strict';
 
 (function () {
+  var TIMEOUT_IN_MS = 10000;
+
   var StatusCode = {
     OK: 200
   };
-  var TIMEOUT_IN_MS = 10000;
 
   var statusHandler = function (xhr, onLoad, onError) {
     xhr.addEventListener('load', function () {
