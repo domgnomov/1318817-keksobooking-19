@@ -44,7 +44,7 @@
 
   var clearFilters = function () {
     mapFormAllFiltersElements.forEach(function (element) {
-      element.value = 'any';
+      element.value = window.filter.typeAny;
     });
   };
 

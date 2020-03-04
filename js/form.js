@@ -6,8 +6,6 @@
 
   var MAX_PRICE = 1000000;
 
-  var HOUSING_TYPE_ANY = 'any';
-
   var BUNGALO_MIN_PRICE = 0;
   var FLAT_MIN_PRICE = 1000;
   var HOUSE_MIN_PRICE = 5000;
@@ -54,7 +52,7 @@
       return false;
     }
     var minPrice = HousingMinPriceByType[formHousingTypeElement.value];
-    if (formHousingTypeElement.value !== HOUSING_TYPE_ANY && formHousingPriceElement.value < minPrice) {
+    if (formHousingTypeElement.value !== window.filter.typeAny && formHousingPriceElement.value < minPrice) {
       formHousingPriceElement.setCustomValidity('Для выбранного типа жилья минимальная цена составляет - ' + minPrice + ' рублей');
       formHousingTypeElement.focus();
       return false;
