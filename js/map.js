@@ -30,9 +30,6 @@
   var mainPinWidth = mapMainPinButtonElement.offsetWidth;
   var mainPinHeight = mapMainPinButtonElement.offsetHeight;
 
-  var LEFT_MOUSE_BUTTON_CODE = 0;
-  var ENTER_KEY = 'Enter';
-
   var onFilterChange = function () {
     window.engine.showFilteredAds();
     clearCards();
@@ -60,13 +57,13 @@
   var init = function () {
     mapMainPinButtonElement.focus();
     mapMainPinButtonElement.addEventListener('mousedown', function (evt) {
-      if (evt.button === LEFT_MOUSE_BUTTON_CODE && !window.engine.isPageActivated) {
+      if (evt.button === window.keyboardUtil.leftMouseButtonCode && !window.engine.isPageActivated) {
         window.engine.activatePage();
       }
     });
 
     mapMainPinButtonElement.addEventListener('keydown', function (evt) {
-      if (evt.key === ENTER_KEY && !window.engine.isPageActivated) {
+      if (evt.key === window.keyboardUtil.enterKey && !window.engine.isPageActivated) {
         window.engine.activatePage();
       }
     });

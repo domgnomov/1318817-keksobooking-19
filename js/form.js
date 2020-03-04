@@ -1,6 +1,25 @@
 'use strict';
 
 (function () {
+  var NOT_FOR_GUESTS_VALUE = '0';
+  var ONE_HUNDRED_ROOMS_VALUE = '100';
+
+  var MAX_PRICE = 1000000;
+
+  var HOUSING_TYPE_ANY = 'any';
+
+  var BUNGALO_MIN_PRICE = 0;
+  var FLAT_MIN_PRICE = 1000;
+  var HOUSE_MIN_PRICE = 5000;
+  var PALACE_MIN_PRICE = 10000;
+
+  var HousingMinPriceByType = {
+    bungalo: BUNGALO_MIN_PRICE,
+    flat: FLAT_MIN_PRICE,
+    house: HOUSE_MIN_PRICE,
+    palace: PALACE_MIN_PRICE
+  };
+
   var formElement = document.querySelector('.ad-form');
   var formCapacityElement = formElement.querySelector('#capacity');
   var formRoomNumberElement = formElement.querySelector('#room_number');
@@ -11,20 +30,6 @@
   var formTimeInElement = formElement.querySelector('#timein');
   var formTimeOutElement = formElement.querySelector('#timeout');
   var resetButtonElement = formElement.querySelector('.ad-form__reset');
-
-  var NOT_FOR_GUESTS_VALUE = '0';
-  var ONE_HUNDRED_ROOMS_VALUE = '100';
-
-  var HOUSING_MIN_PRICE_BY_TYPE = {
-    bungalo: 0,
-    flat: 1000,
-    house: 5000,
-    palace: 10000
-  };
-
-  var MAX_PRICE = 1000000;
-
-  var HOUSING_TYPE_ANY = 'any';
 
   var validateForm = function () {
     if (formCapacityElement.value === NOT_FOR_GUESTS_VALUE && formRoomNumberElement.value !== ONE_HUNDRED_ROOMS_VALUE) {
@@ -48,7 +53,7 @@
     if (formHousingPriceElement.value < 0 || formHousingPriceElement.value > MAX_PRICE) {
       return false;
     }
-    var minPrice = HOUSING_MIN_PRICE_BY_TYPE[formHousingTypeElement.value];
+    var minPrice = HousingMinPriceByType[formHousingTypeElement.value];
     if (formHousingTypeElement.value !== HOUSING_TYPE_ANY && formHousingPriceElement.value < minPrice) {
       formHousingPriceElement.setCustomValidity('Для выбранного типа жилья минимальная цена составляет - ' + minPrice + ' рублей');
       formHousingTypeElement.focus();
@@ -62,7 +67,7 @@
   };
 
   var changePlaceholderPrice = function () {
-    var newPlaceholderPrice = HOUSING_MIN_PRICE_BY_TYPE[formHousingTypeElement.value];
+    var newPlaceholderPrice = HousingMinPriceByType[formHousingTypeElement.value];
     formHousingPriceElement.placeholder = newPlaceholderPrice;
   };
 
