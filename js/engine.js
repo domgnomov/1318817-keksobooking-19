@@ -28,11 +28,12 @@
 
   var deactivatePage = function () {
     isPageActivated = false;
+    window.card.closeAllCardElements();
     disableElements(window.form.elements.formFieldsetElement);
     window.form.elements.formElement.reset();
     window.form.elements.formElement.classList.add('ad-form--disabled');
-    disableElements(window.map.elements.mapFormFieldsetElement);
-    disableElements(window.map.elements.mapFormSelectElement);
+    disableElements(window.map.elements.mapFormFieldsetElements);
+    disableElements(window.map.elements.mapFormSelectElements);
     window.map.elements.mapElement.classList.add('map--faded');
     window.data.clearAds();
     window.map.clearFilters();
@@ -60,8 +61,8 @@
     window.data.initAds(ads);
     window.map.elements.mapPinsElement.appendChild(window.data.getAdElements(window.data.getInitialAds()));
     window.map.elements.mapElement.classList.remove('map--faded');
-    enableElements(window.map.elements.mapFormFieldsetElement);
-    enableElements(window.map.elements.mapFormSelectElement);
+    enableElements(window.map.elements.mapFormFieldsetElements);
+    enableElements(window.map.elements.mapFormSelectElements);
   };
 
   var activateElements = function () {

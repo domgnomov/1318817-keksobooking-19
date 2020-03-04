@@ -6,14 +6,15 @@
 
   var mapElement = document.querySelector('.map');
   var mapPinsElement = document.querySelector('.map__pins');
+  var mapNotMainPinsElements = mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
   var mapFilterElement = document.querySelector('.map__filters-container');
   var mapMainPinButtonElement = mapPinsElement.querySelector('.map__pin--main');
 
   var mapFormElement = document.querySelector('.map__filters');
   var mapFormAllFiltersElements = mapFormElement.querySelectorAll('.map__filter');
   var mapFormAllCheckboxElements = mapFormElement.querySelectorAll('.map__checkbox');
-  var mapFormFieldsetElement = mapFormElement.querySelectorAll('fieldset');
-  var mapFormSelectElement = mapFormElement.querySelectorAll('select');
+  var mapFormFieldsetElements = mapFormElement.querySelectorAll('fieldset');
+  var mapFormSelectElements = mapFormElement.querySelectorAll('select');
   var mapFormHousingTypeElement = mapFormElement.querySelector('#housing-type');
   var mapFormHousingPriceElement = mapFormElement.querySelector('#housing-price');
   var mapFormHousingRoomsElement = mapFormElement.querySelector('#housing-rooms');
@@ -90,12 +91,13 @@
     pinTemplateElement: pinTemplateElement,
     mapPinElement: mapPinElement,
     mapPinsElement: mapPinsElement,
+    mapNotMainPinsElements: mapNotMainPinsElements,
     mapMainPinButtonElement: mapMainPinButtonElement,
     mapElement: mapElement,
     mapFilterElement: mapFilterElement,
     mapFormElement: mapFormElement,
-    mapFormFieldsetElement: mapFormFieldsetElement,
-    mapFormSelectElement: mapFormSelectElement,
+    mapFormFieldsetElements: mapFormFieldsetElements,
+    mapFormSelectElements: mapFormSelectElements,
     mapFormHousingTypeElement: mapFormHousingTypeElement,
     mapFormHousingPriceElement: mapFormHousingPriceElement,
     mapFormHousingRoomsElement: mapFormHousingRoomsElement,
