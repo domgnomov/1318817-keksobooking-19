@@ -4,7 +4,7 @@
   var formElement = document.querySelector('.ad-form');
   var formCapacityElement = formElement.querySelector('#capacity');
   var formRoomNumberElement = formElement.querySelector('#room_number');
-  var formFieldsetElement = formElement.querySelectorAll('fieldset');
+  var formFieldsetElements = formElement.querySelectorAll('fieldset');
   var formAddressElement = formElement.querySelector('#address');
   var formHousingTypeElement = formElement.querySelector('#type');
   var formHousingPriceElement = formElement.querySelector('#price');
@@ -126,7 +126,7 @@
     formElement: formElement,
     formCapacityElement: formCapacityElement,
     formRoomNumberElement: formRoomNumberElement,
-    formFieldsetElement: formFieldsetElement,
+    formFieldsetElements: formFieldsetElements,
     formAddressElement: formAddressElement
   };
 

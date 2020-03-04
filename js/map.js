@@ -39,8 +39,8 @@
   };
 
   var clearCards = function () {
-    var mapCardsElement = mapElement.querySelectorAll('.map__card');
-    mapCardsElement.forEach(function (card) {
+    var mapCardsElements = mapElement.querySelectorAll('.map__card');
+    mapCardsElements.forEach(function (card) {
       mapElement.removeChild(card);
     });
   };

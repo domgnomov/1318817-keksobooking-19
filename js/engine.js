@@ -29,7 +29,7 @@
   var deactivatePage = function () {
     isPageActivated = false;
     window.card.closeAllCardElements();
-    disableElements(window.form.elements.formFieldsetElement);
+    disableElements(window.form.elements.formFieldsetElements);
     window.form.elements.formElement.reset();
     window.form.elements.formElement.classList.add('ad-form--disabled');
     disableElements(window.map.elements.mapFormFieldsetElements);
@@ -47,7 +47,7 @@
       return;
     }
     isPageActivated = true;
-    enableElements(window.form.elements.formFieldsetElement);
+    enableElements(window.form.elements.formFieldsetElements);
     window.form.elements.formElement.classList.remove('ad-form--disabled');
     activateElements();
     setAddress();
