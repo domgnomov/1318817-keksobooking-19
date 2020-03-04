@@ -14,6 +14,11 @@
   var minY = MIN_PIN_Y_VALUE - window.map.mainPinHeight;
   var maxY = MAX_PIN_Y_VALUE - window.map.mainPinHeight;
 
+  var Coordinate = function (x, y) {
+    this.x = x;
+    this.y = y;
+  };
+
   var init = function () {
     defaultPositionTop = mainPinElement.offsetTop + 'px';
     defaultPositionLeft = mainPinElement.offsetLeft + 'px';
@@ -21,10 +26,7 @@
     mainPinElement.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
 
-      var startCoords = {
-        x: evt.clientX,
-        y: evt.clientY
-      };
+      var startCoords = new Coordinate(evt.clientX, evt.clientY);
 
       var dragged = false;
 
@@ -32,15 +34,9 @@
         moveEvt.preventDefault();
         dragged = true;
 
-        var shift = {
-          x: startCoords.x - moveEvt.clientX,
-          y: startCoords.y - moveEvt.clientY
-        };
+        var shift = new Coordinate(startCoords.x - moveEvt.clientX, startCoords.y - moveEvt.clientY);
 
-        startCoords = {
-          x: moveEvt.clientX,
-          y: moveEvt.clientY
-        };
+        startCoords = new Coordinate(moveEvt.clientX, moveEvt.clientY);
 
         var newTopValue = mainPinElement.offsetTop - shift.y;
         if (newTopValue >= minY && newTopValue <= maxY) {

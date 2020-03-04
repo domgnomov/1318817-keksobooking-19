@@ -37,11 +37,14 @@
     window.data.clearAds();
     window.map.clearFilters();
     window.map.clearCheckboxes();
-    setAddress();
     window.mapPinMoving.setDefaultPosition();
+    setAddress();
   };
 
   var activatePage = function () {
+    if (isPageActivated) {
+      return;
+    }
     isPageActivated = true;
     enableElements(window.form.elements.formFieldsetElement);
     window.form.elements.formElement.classList.remove('ad-form--disabled');

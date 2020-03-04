@@ -28,19 +28,19 @@
 
   var validateForm = function () {
     if (formCapacityElement.value === NOT_FOR_GUESTS_VALUE && formRoomNumberElement.value !== ONE_HUNDRED_ROOMS_VALUE) {
-      formRoomNumberElement.setCustomValidity('Для количества гостей \'не для гостей\' доступно только количество комнат \'100 комнат\'');
+      formRoomNumberElement.setCustomValidity('Для количества мест \'не для гостей\' доступно только количество комнат \'100 комнат\'');
       formCapacityElement.setCustomValidity('');
       formRoomNumberElement.focus();
       return false;
     }
     if (formRoomNumberElement.value === ONE_HUNDRED_ROOMS_VALUE && formCapacityElement.value !== NOT_FOR_GUESTS_VALUE) {
-      formCapacityElement.setCustomValidity('Для количества комнат \'100 комнат\' доступно только количество гостей \'не для гостей\'');
+      formCapacityElement.setCustomValidity('Для количества комнат \'100 комнат\' доступно только количество мест \'не для гостей\'');
       formRoomNumberElement.setCustomValidity('');
       formCapacityElement.focus();
       return false;
     }
     if (formRoomNumberElement.value < formCapacityElement.value) {
-      formCapacityElement.setCustomValidity('Количество гостей не может превышать количество комнат');
+      formCapacityElement.setCustomValidity('Количество мест не может превышать количество комнат');
       formRoomNumberElement.setCustomValidity('');
       formCapacityElement.focus();
       return false;

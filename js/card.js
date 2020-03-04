@@ -17,6 +17,7 @@
 
   var closeCardElement = function (element) {
     return function () {
+      element.remove();
       element.classList.add('hidden');
     };
   };
