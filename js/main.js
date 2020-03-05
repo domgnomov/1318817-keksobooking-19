@@ -1,9 +1,18 @@
 'use strict';
 
 (function () {
-  window.map.init();
-  window.mapPinMoving.init();
-  window.form.init();
-  window.engine.deactivatePage();
+
+  var init = function () {
+    window.map.init();
+    window.mapPinMoving.init();
+    window.form.init();
+    window.engine.deactivatePage();
+  };
+
+  init();
+
+  window.main = {
+    init: init
+  };
 })();
 

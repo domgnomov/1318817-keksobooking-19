@@ -3,26 +3,28 @@
 (function () {
   var RADIX = 10;
 
+  var TYPE_ANY = 'any';
+
   var getFilteredAds = function (ads) {
     var result = ads.slice();
 
     var typeFilterValue = window.map.elements.mapFormHousingTypeElement.value;
-    if (typeFilterValue !== 'any') {
+    if (typeFilterValue !== TYPE_ANY) {
       result = filterByType(result, typeFilterValue);
     }
 
     var priceFilterValue = window.map.elements.mapFormHousingPriceElement.value;
-    if (priceFilterValue !== 'any') {
+    if (priceFilterValue !== TYPE_ANY) {
       result = filterByPrice(result, priceFilterValue);
     }
 
     var roomsFilterValue = window.map.elements.mapFormHousingRoomsElement.value;
-    if (roomsFilterValue !== 'any') {
+    if (roomsFilterValue !== TYPE_ANY) {
       result = filterByRooms(result, roomsFilterValue);
     }
 
     var guestsFilterValue = window.map.elements.mapFormHousingGuestsElement.value;
-    if (guestsFilterValue !== 'any') {
+    if (guestsFilterValue !== TYPE_ANY) {
       result = filterByGuests(result, guestsFilterValue);
     }
 
@@ -97,6 +99,7 @@
   };
 
   window.filter = {
+    typeAny: TYPE_ANY,
     getFilteredAds: getFilteredAds
   };
 

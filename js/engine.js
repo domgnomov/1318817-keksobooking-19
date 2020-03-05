@@ -28,24 +28,28 @@
 
   var deactivatePage = function () {
     isPageActivated = false;
-    disableElements(window.form.elements.formFieldsetElement);
+    window.card.closeAllCardElements();
+    disableElements(window.form.elements.formFieldsetElements);
     window.form.elements.formElement.reset();
     window.form.elements.formElement.classList.add('ad-form--disabled');
-    disableElements(window.map.elements.mapFormFieldsetElement);
-    disableElements(window.map.elements.mapFormSelectElement);
+    disableElements(window.map.elements.mapFormFieldsetElements);
+    disableElements(window.map.elements.mapFormSelectElements);
     window.map.elements.mapElement.classList.add('map--faded');
-    setAddress();
+    window.data.clearAds();
+    window.map.clearFilters();
+    window.map.clearCheckboxes();
     window.mapPinMoving.setDefaultPosition();
+    setAddress();
   };
 
   var activatePage = function () {
+    if (isPageActivated) {
+      return;
+    }
     isPageActivated = true;
-    enableElements(window.form.elements.formFieldsetElement);
+    enableElements(window.form.elements.formFieldsetElements);
     window.form.elements.formElement.classList.remove('ad-form--disabled');
-    enableElements(window.map.elements.mapFormFieldsetElement);
-    enableElements(window.map.elements.mapFormSelectElement);
     activateElements();
-    window.map.elements.mapElement.classList.remove('map--faded');
     setAddress();
   };
 
@@ -56,6 +60,9 @@
   var showBaseAds = function (ads) {
     window.data.initAds(ads);
     window.map.elements.mapPinsElement.appendChild(window.data.getAdElements(window.data.getInitialAds()));
+    window.map.elements.mapElement.classList.remove('map--faded');
+    enableElements(window.map.elements.mapFormFieldsetElements);
+    enableElements(window.map.elements.mapFormSelectElements);
   };
 
   var activateElements = function () {

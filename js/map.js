@@ -6,14 +6,15 @@
 
   var mapElement = document.querySelector('.map');
   var mapPinsElement = document.querySelector('.map__pins');
+  var mapNotMainPinsElements = mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
   var mapFilterElement = document.querySelector('.map__filters-container');
   var mapMainPinButtonElement = mapPinsElement.querySelector('.map__pin--main');
 
   var mapFormElement = document.querySelector('.map__filters');
   var mapFormAllFiltersElements = mapFormElement.querySelectorAll('.map__filter');
   var mapFormAllCheckboxElements = mapFormElement.querySelectorAll('.map__checkbox');
-  var mapFormFieldsetElement = mapFormElement.querySelectorAll('fieldset');
-  var mapFormSelectElement = mapFormElement.querySelectorAll('select');
+  var mapFormFieldsetElements = mapFormElement.querySelectorAll('fieldset');
+  var mapFormSelectElements = mapFormElement.querySelectorAll('select');
   var mapFormHousingTypeElement = mapFormElement.querySelector('#housing-type');
   var mapFormHousingPriceElement = mapFormElement.querySelector('#housing-price');
   var mapFormHousingRoomsElement = mapFormElement.querySelector('#housing-rooms');
@@ -29,31 +30,40 @@
   var mainPinWidth = mapMainPinButtonElement.offsetWidth;
   var mainPinHeight = mapMainPinButtonElement.offsetHeight;
 
-  var LEFT_MOUSE_BUTTON_CODE = 0;
-  var ENTER_KEY = 'Enter';
-
   var onFilterChange = function () {
     window.engine.showFilteredAds();
     clearCards();
   };
 
   var clearCards = function () {
-    var mapCardsElement = mapElement.querySelectorAll('.map__card');
-    mapCardsElement.forEach(function (card) {
+    var mapCardsElements = mapElement.querySelectorAll('.map__card');
+    mapCardsElements.forEach(function (card) {
       mapElement.removeChild(card);
+    });
+  };
+
+  var clearFilters = function () {
+    mapFormAllFiltersElements.forEach(function (element) {
+      element.value = window.filter.typeAny;
+    });
+  };
+
+  var clearCheckboxes = function () {
+    mapFormAllCheckboxElements.forEach(function (element) {
+      element.checked = false;
     });
   };
 
   var init = function () {
     mapMainPinButtonElement.focus();
     mapMainPinButtonElement.addEventListener('mousedown', function (evt) {
-      if (evt.button === LEFT_MOUSE_BUTTON_CODE && !window.engine.isPageActivated) {
+      if (evt.button === window.keyboardUtil.leftMouseButtonCode && !window.engine.isPageActivated) {
         window.engine.activatePage();
       }
     });
 
     mapMainPinButtonElement.addEventListener('keydown', function (evt) {
-      if (evt.key === ENTER_KEY && !window.engine.isPageActivated) {
+      if (evt.key === window.keyboardUtil.enterKey && !window.engine.isPageActivated) {
         window.engine.activatePage();
       }
     });
@@ -78,12 +88,13 @@
     pinTemplateElement: pinTemplateElement,
     mapPinElement: mapPinElement,
     mapPinsElement: mapPinsElement,
+    mapNotMainPinsElements: mapNotMainPinsElements,
     mapMainPinButtonElement: mapMainPinButtonElement,
     mapElement: mapElement,
     mapFilterElement: mapFilterElement,
     mapFormElement: mapFormElement,
-    mapFormFieldsetElement: mapFormFieldsetElement,
-    mapFormSelectElement: mapFormSelectElement,
+    mapFormFieldsetElements: mapFormFieldsetElements,
+    mapFormSelectElements: mapFormSelectElements,
     mapFormHousingTypeElement: mapFormHousingTypeElement,
     mapFormHousingPriceElement: mapFormHousingPriceElement,
     mapFormHousingRoomsElement: mapFormHousingRoomsElement,
@@ -98,6 +109,8 @@
 
   window.map = {
     init: init,
+    clearFilters: clearFilters,
+    clearCheckboxes: clearCheckboxes,
     elements: elements,
     mapWidth: mapWidth,
     mainPinWidth: mainPinWidth,
