@@ -43,9 +43,10 @@
     newElement.style.top = (ad.location.y - window.map.mainPinHeight) + 'px';
 
     var img = newElement.getElementsByTagName('img')[0];
-
-    img.src = ad.author.avatar;
-    img.alt = ad.offer.title;
+    if (ad.author.avatar) {
+      img.src = ad.author.avatar;
+      img.alt = ad.offer.title;
+    }
 
     initAdElementEvents(newElement, ad);
 
