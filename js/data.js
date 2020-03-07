@@ -83,5 +83,4 @@
     clearAds: clearAds,
     initialAds: initialAds
   };
-
 })();
