@@ -18,6 +18,7 @@
   var closeCardElement = function (element) {
     return function () {
       element.remove();
+      window.data.setPinsToNonActiveState();
     };
   };
 
