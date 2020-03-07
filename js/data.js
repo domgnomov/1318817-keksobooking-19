@@ -53,16 +53,19 @@
     return newElement;
   };
 
+  var setPinsToNonActiveState = function () {
+    var children = window.map.elements.mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
+    children.forEach(function (child) {
+      child.classList.remove('map__pin--active');
+    });
+  };
+
   var initAdElementEvents = function (element, ad) {
     var cardElement = window.card.getCardElement(ad);
 
     element.addEventListener('click', function () {
       window.card.showCardElement(cardElement)();
-
-      var children = window.map.elements.mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
-      children.forEach(function (child) {
-        child.classList.remove('map__pin--active');
-      });
+      setPinsToNonActiveState();
       element.classList.add('map__pin--active');
     });
 
@@ -76,6 +79,7 @@
     getInitialAds: getInitialAds,
     getFilteredAds: getFilteredAds,
     getAdElements: getAdElements,
+    setPinsToNonActiveState: setPinsToNonActiveState,
     clearAds: clearAds,
     initialAds: initialAds
   };
