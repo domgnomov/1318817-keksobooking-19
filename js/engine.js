@@ -21,9 +21,14 @@
     if (!isPageActivated) {
       yShift = yShift / 2;
     }
-    var x = Math.round(1 * (window.map.elements.mapMainPinButtonElement.style.left.replace('px', '')) + xShift);
-    var y = Math.round(1 * (window.map.elements.mapMainPinButtonElement.style.top.replace('px', '')) + yShift);
+    var x = getCoordinateWithShift('left', xShift);
+    var y = getCoordinateWithShift('top', yShift);
     window.form.elements.formAddressElement.value = x + ', ' + y;
+  };
+
+  var getCoordinateWithShift = function (propertyName, shift) {
+    var coordinatePropertyValue = window.map.elements.mapMainPinButtonElement.style.getPropertyValue(propertyName);
+    return Math.round(1 * (coordinatePropertyValue.replace('px', '')) + shift);
   };
 
   var deactivatePage = function () {
@@ -54,15 +59,19 @@
   };
 
   var showFilteredAds = function () {
-    window.map.elements.mapPinsElement.appendChild(window.data.getAdElements(window.data.getFilteredAds()));
+    addMapPins(window.data.getFilteredAds());
   };
 
   var showBaseAds = function (ads) {
     window.data.initAds(ads);
-    window.map.elements.mapPinsElement.appendChild(window.data.getAdElements(window.data.getInitialAds()));
+    addMapPins(window.data.getInitialAds());
     window.map.elements.mapElement.classList.remove('map--faded');
     enableElements(window.map.elements.mapFormFieldsetElements);
     enableElements(window.map.elements.mapFormSelectElements);
+  };
+
+  var addMapPins = function (ads) {
+    window.map.elements.mapPinsElement.appendChild(window.data.getAdElements(ads));
   };
 
   var activateElements = function () {

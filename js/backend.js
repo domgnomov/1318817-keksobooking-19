@@ -3,6 +3,9 @@
 (function () {
   var TIMEOUT_IN_MS = 10000;
 
+  var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
+  var SAVE_URL = 'https://js.dump.academy/keksobooking';
+
   var StatusCode = {
     OK: 200
   };
@@ -34,11 +37,11 @@
   };
 
   var load = function (onLoad, onError) {
-    doRequest('https://js.dump.academy/keksobooking/data', 'GET', onLoad, onError);
+    doRequest(LOAD_URL, 'GET', onLoad, onError);
   };
 
   var save = function (data, onLoad, onError) {
-    doRequest('https://js.dump.academy/keksobooking', 'POST', onLoad, onError, data);
+    doRequest(SAVE_URL, 'POST', onLoad, onError, data);
   };
 
   window.backend = {

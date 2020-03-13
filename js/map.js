@@ -6,7 +6,6 @@
 
   var mapElement = document.querySelector('.map');
   var mapPinsElement = document.querySelector('.map__pins');
-  var mapNotMainPinsElements = mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
   var mapFilterElement = document.querySelector('.map__filters-container');
   var mapMainPinButtonElement = mapPinsElement.querySelector('.map__pin--main');
 
@@ -88,7 +87,6 @@
     pinTemplateElement: pinTemplateElement,
     mapPinElement: mapPinElement,
     mapPinsElement: mapPinsElement,
-    mapNotMainPinsElements: mapNotMainPinsElements,
     mapMainPinButtonElement: mapMainPinButtonElement,
     mapElement: mapElement,
     mapFilterElement: mapFilterElement,

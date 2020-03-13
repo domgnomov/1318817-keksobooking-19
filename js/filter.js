@@ -5,6 +5,9 @@
 
   var TYPE_ANY = 'any';
 
+  var MIN_HIGH_PRICE = 50000;
+  var MIN_MIDDLE_PRICE = 10000;
+
   var getFilteredAds = function (ads) {
     var result = ads.slice();
 
@@ -56,25 +59,25 @@
   };
 
   var filterByType = function (ads, value) {
-    return ads.slice().filter(function (ad) {
+    return ads.filter(function (ad) {
       return ad.offer.type.toString() === value;
     });
   };
 
   var filterByPrice = function (ads, value) {
-    return ads.slice().filter(function (ad) {
+    return ads.filter(function (ad) {
       return getValueByPrice(ad.offer.price) === value;
     });
   };
 
   var filterByRooms = function (ads, value) {
-    return ads.slice().filter(function (ad) {
+    return ads.filter(function (ad) {
       return ad.offer.rooms.toString() === value;
     });
   };
 
   var filterByGuests = function (ads, value) {
-    return ads.slice().filter(function (ad) {
+    return ads.filter(function (ad) {
       if (parseInt(value, RADIX) === 0) {
         return ad.offer.guests === 0;
       }
@@ -83,15 +86,15 @@
   };
 
   var filterByFeature = function (ads, value) {
-    return ads.slice().filter(function (ad) {
+    return ads.filter(function (ad) {
       return ad.offer.features.includes(value);
     });
   };
 
   var getValueByPrice = function (price) {
-    if (price >= 50000) {
+    if (price >= MIN_HIGH_PRICE) {
       return 'high';
-    } else if (price >= 10000) {
+    } else if (price >= MIN_MIDDLE_PRICE) {
       return 'middle';
     } else {
       return 'low';
