@@ -7,6 +7,8 @@
   var HOUSE_PHOTO_PREVIEW_HEIGHT = 70;
   var HOUSE_PHOTO_PREVIEW_ID_NAME = 'house-photo-preview';
 
+  var AVATAR_DEFAULT_SRC = 'img/muffin-grey.svg';
+
   var avatarChooser = document.querySelector('.ad-form__field input[type=file]');
   var avatarPreview = document.querySelector('.ad-form-header__preview img');
 
@@ -22,7 +24,7 @@
   });
 
   var getHousePhotoPreview = function () {
-    var housePhotoPreview = housePhotoPreviewContainer.querySelector('#' + HOUSE_PHOTO_PREVIEW_ID_NAME);
+    var housePhotoPreview = getHousePhotoPreviewElement();
     if (!housePhotoPreview) {
       housePhotoPreview = document.createElement('img');
       housePhotoPreview.setAttribute('id', HOUSE_PHOTO_PREVIEW_ID_NAME);
@@ -31,6 +33,10 @@
       housePhotoPreviewContainer.appendChild(housePhotoPreview);
     }
     return housePhotoPreview;
+  };
+
+  var getHousePhotoPreviewElement = function () {
+    return housePhotoPreviewContainer.querySelector('#' + HOUSE_PHOTO_PREVIEW_ID_NAME);
   };
 
   var choosePhoto = function (chooser, preview) {
@@ -53,5 +59,17 @@
 
       reader.readAsDataURL(file);
     }
+  };
+
+  var clearPreviews = function () {
+    avatarPreview.src = AVATAR_DEFAULT_SRC;
+    var housePhotoPreview = getHousePhotoPreviewElement();
+    if (housePhotoPreview) {
+      housePhotoPreviewContainer.removeChild(housePhotoPreview);
+    }
+  };
+
+  window.images = {
+    clearPreviews: clearPreviews
   };
 })();

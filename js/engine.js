@@ -43,6 +43,7 @@
     window.data.clearAds();
     window.map.clearFilters();
     window.map.clearCheckboxes();
+    window.images.clearPreviews();
     window.mapPinMoving.setDefaultPosition();
     setAddress();
   };
