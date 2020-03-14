@@ -63,14 +63,6 @@
     }
   };
 
-  var setCardInnerHTMLValue = function (value, isFieldExist, element) {
-    if (isFieldExist) {
-      element.innerHTML = value;
-    } else {
-      element.style.display = 'none';
-    }
-  };
-
   var setFeaturesValues = function (values, isFieldExist, element) {
     if (isFieldExist) {
       var children = element.querySelectorAll('.popup__feature');
