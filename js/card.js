@@ -47,10 +47,6 @@
     }
   };
 
-  var getPrice = function (price) {
-    return price + ' &#x20bd;<span>/ночь</span>';
-  };
-
   var getCapacity = function (rooms, guests) {
     return rooms + ' комнаты для ' + guests + ' гостей';
   };
@@ -122,7 +118,7 @@
 
     setCardTextValue(ad.offer.title, 'title' in ad.offer, newElement.querySelector('.popup__title'));
     setCardTextValue(ad.offer.address, 'address' in ad.offer, newElement.querySelector('.popup__text--address'));
-    setCardInnerHTMLValue(getPrice(ad.offer.price), 'price' in ad.offer, newElement.querySelector('.popup__text--price'));
+    setCardTextValue(ad.offer.price, 'price' in ad.offer, newElement.querySelector('#price-per-night'));
     setCardTextValue(getTypeName(ad.offer.type), 'type' in ad.offer, newElement.querySelector('.popup__type'));
     setCardTextValue(getCapacity(ad.offer.rooms, ad.offer.guests), ('rooms' in ad.offer) && ('guests' in ad.offer), newElement.querySelector('.popup__text--capacity'));
     setCardTextValue(getTime(ad.offer.checkin, ad.offer.checkout), ('checkin' in ad.offer) && ('checkout' in ad.offer), newElement.querySelector('.popup__text--time'));

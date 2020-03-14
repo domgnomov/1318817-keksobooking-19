@@ -29,9 +29,12 @@
     }, document.createDocumentFragment());
   };
 
+  var getMapPins = function () {
+    return window.map.elements.mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
+  };
+
   var clearAds = function () {
-    var children = window.map.elements.mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
-    children.forEach(function (child) {
+    getMapPins().forEach(function (child) {
       window.map.elements.mapPinsElement.removeChild(child);
     });
   };
@@ -54,8 +57,7 @@
   };
 
   var setPinsToNonActiveState = function () {
-    var children = window.map.elements.mapPinsElement.querySelectorAll('.map__pin:not(.map__pin--main)');
-    children.forEach(function (child) {
+    getMapPins().forEach(function (child) {
       child.classList.remove('map__pin--active');
     });
   };
